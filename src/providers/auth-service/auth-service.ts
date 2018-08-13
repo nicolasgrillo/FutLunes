@@ -31,7 +31,7 @@ export class AuthServiceProvider {
     var requestBody = "grant_type=password&username=" + user + "&password=" + password;
 
     return this.http.post(
-      this.baseApiUrl,
+      this.baseApiUrl + "/token",
       requestBody,
       {
         headers:{
