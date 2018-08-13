@@ -3,7 +3,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
-import { MyApp } from './app.component';
+import { FutLunesApp } from './app.component';
 import { HomePage, ListPage, LoginPage} from '../pages/pages';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -12,7 +12,7 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 
 @NgModule({
   declarations: [
-    MyApp,
+    FutLunesApp,
     HomePage,
     ListPage,
     LoginPage
@@ -20,11 +20,11 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(FutLunesApp),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
+    FutLunesApp,
     HomePage,
     ListPage,
     LoginPage
