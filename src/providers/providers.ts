@@ -1,0 +1,1 @@
+export { AuthServiceProvider } from './auth-service/auth-service';
