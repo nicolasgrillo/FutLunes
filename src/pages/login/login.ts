@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Loading, LoadingController, AlertController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/providers';
 
 /**
@@ -15,28 +15,66 @@ import { AuthServiceProvider } from '../../providers/providers';
   templateUrl: 'login.html',
 })
 export class LoginPage {
-  @ViewChild('email') email: any;
-  public username: string;
-  public password: string;
-  public error: string;
+  loading: Loading;
+  @ViewChild('username') username: string;
+  @ViewChild('password') password: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private auth : AuthServiceProvider) {
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
-  }
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams, 
+              public alertCtrl: AlertController,
+              public loadingCtrl: LoadingController,
+              private auth : AuthServiceProvider) {  }
 
   login(){
+    this.showLoading();
     this.auth.getToken(this.username, this.password)
-    .subscribe((resp) => {
-      localStorage.setItem('access_token', resp['access_token']);
-    },
-    (err) => {
-      console.log(err);
-    }
-    )
-    
+    .subscribe(
+      (resp) => 
+        {
+          localStorage.setItem('access_token', resp['access_token']);
+          this.showSuccess('Authenticated');
+          //this.navCtrl.setRoot('HomePage');
+        },
+      (err) => 
+        {
+          this.showError('Access Denied');
+          console.log(err);
+        }
+    )    
   }
+
+  createAccount(){
+    this.navCtrl.push('RegisterPage');
+  }
+
+  showLoading() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...',
+      dismissOnPageChange: true
+    });
+    this.loading.present();
+  }
+
+  showSuccess(text) {
+    this.loading.dismiss();
+ 
+    let alert = this.alertCtrl.create({
+      title: 'Success',
+      subTitle: text,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+ 
+  showError(text) {
+    this.loading.dismiss();
+ 
+    let alert = this.alertCtrl.create({
+      title: 'Fail',
+      subTitle: text,
+      buttons: ['OK']
+    });
+    alert.present();
+  }  
 
 }

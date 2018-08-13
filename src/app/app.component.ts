@@ -10,7 +10,7 @@ import { HomePage, ListPage, LoginPage } from '../pages/pages';
 export class FutLunesApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = LoginPage;
+  rootPage: any = HomePage;
 
   pages: Array<{title: string, component: any}>;
 
