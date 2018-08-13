@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment as ENV } from '../../../src/environments/environment';
 
 /*
   Generated class for the UserService provider.
@@ -10,6 +11,8 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class UserService {
 
+  apiBaseUrl : string = ENV.API_BASE_URL;
+
   constructor(private http: HttpClient) {}
-  
+
 }
