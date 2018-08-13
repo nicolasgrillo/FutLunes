@@ -33,7 +33,7 @@ export class LoginPage {
         {
           localStorage.setItem('access_token', resp['access_token']);
           this.showSuccess('Authenticated');
-          //this.navCtrl.setRoot('HomePage');
+          this.navCtrl.setRoot('HomePage');
         },
       (err) => 
         {
