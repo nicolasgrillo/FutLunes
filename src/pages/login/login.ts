@@ -16,9 +16,9 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 })
 export class LoginPage {
   @ViewChild('email') email: any;
-  private username: string;
-  private password: string;
-  private error: string;
+  public username: string;
+  public password: string;
+  public error: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private auth : AuthServiceProvider) {
   }
