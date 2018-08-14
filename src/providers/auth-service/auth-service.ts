@@ -26,6 +26,11 @@ export class AuthServiceProvider {
     token = JSON.stringify(token);
     localStorage.setItem('access_token', token);
   }
+
+  get CurrentUser() : string {
+    if (this.Token != null) return this.Token['userName'];
+    return null;
+  }
   
   constructor(private http: HttpClient) {}
 
@@ -51,6 +56,10 @@ export class AuthServiceProvider {
 
   public isAuthenticated() : boolean {
     return (this.Token != null && !(this.tokenHasExpired()));
+  }
+
+  public isAdmin() : boolean {
+    return (this.isAuthenticated() && this.CurrentUser == 'admin');
   }
   
 }

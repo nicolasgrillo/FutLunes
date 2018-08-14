@@ -13,11 +13,21 @@ export class HomePage {
   constructor(public navCtrl: NavController,
               private auth : AuthServiceProvider) {}
 
+  user;
+
   ionViewCanEnter(): boolean {
     if(!this.auth.isAuthenticated()){
       this.navCtrl.setRoot(LoginPage);
     }
     return this.auth.isAuthenticated();
   }
+
+  ionViewWillEnter(): void {
+    if (this.auth.isAuthenticated()){
+      this.user = this.auth.CurrentUser;
+    }
+  }
+
+  
 
 }
