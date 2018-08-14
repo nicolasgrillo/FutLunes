@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment as ENV } from '../../environments/environment';
 import { Observable } from '../../../node_modules/rxjs/Observable';
+import 'rxjs/add/operator/map';
 
 /*
   Generated class for the AuthServiceProvider provider.
@@ -39,7 +40,7 @@ export class AuthServiceProvider {
     var requestBody = "grant_type=password&username=" + user + "&password=" + password;
 
     return this.http.post(
-      this.baseApiUrl + "/token",
+      this.baseApiUrl + "token",
       requestBody,
       {
         headers:{
@@ -47,6 +48,34 @@ export class AuthServiceProvider {
         }
       }
     )
+  }
+
+  // Register
+  public register(credentials) {
+    if (credentials.username === null || credentials.email === null || credentials.password === null) {
+      return Observable.throw("Please insert credentials");
+    } else {
+      return Observable.create(observer => {
+
+        this.http.post(
+          this.baseApiUrl + "api/account/register", 
+          credentials, 
+          {
+            headers: {
+              'Authentication': 'Bearer ' + this.Token['access_token'],
+              'Content-type':'application/json'
+            }
+          }
+        )
+        .map(res => JSON.stringify(res))
+        .subscribe( data => {
+          console.log(data);
+        });
+
+        observer.next(true);
+        observer.complete();
+      });
+    }
   }
 
   public tokenHasExpired() : boolean {

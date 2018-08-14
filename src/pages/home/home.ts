@@ -14,19 +14,21 @@ export class HomePage {
   constructor(public navCtrl: NavController,
               private auth : AuthServiceProvider) {}
 
-  ionViewCanEnter(): boolean {
-    if(!this.auth.isAuthenticated()){
-      this.navCtrl.setRoot(LoginPage);
-    }
-    return this.auth.isAuthenticated();
-  }
+  // ionViewCanEnter(): boolean {
+  //   if(!this.auth.isAuthenticated()){
+  //     this.navCtrl.setRoot(LoginPage);
+  //   }
+  //   return this.auth.isAuthenticated();
+  // }
 
   ionViewWillEnter(): void {
-    if (this.auth.isAdmin()){
-      this.navCtrl.setRoot(AdminPage);
-    }
-    else {
-      this.navCtrl.setRoot(UserPage);
+    if (this.auth.isAuthenticated()){
+      if (this.auth.isAdmin()){
+        this.navCtrl.push(AdminPage);
+      }
+      else {
+        this.navCtrl.push(UserPage);
+      }
     }
   }
 

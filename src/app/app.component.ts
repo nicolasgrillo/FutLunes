@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { HomePage, ListPage, AdminPage } from '../pages/pages';
+import { HomePage, ListPage, AdminPage, LoginPage } from '../pages/pages';
 import { AuthServiceProvider } from '../providers/providers';
 
 @Component({
@@ -21,17 +21,29 @@ export class FutLunesApp {
               private auth: AuthServiceProvider) {
     this.initializeApp();
 
-    if (this.auth.isAuthenticated() && this.auth.isAdmin()){
-      this.rootPage = AdminPage
+    // if (this.auth.isAuthenticated() && this.auth.isAdmin()){
+    //   this.rootPage = AdminPage
       
+    //   this.pages = [
+    //     { title: 'List', component: ListPage }
+    //   ];
+    // }
+    // else {
+    //   this.pages = [
+    //     { title: 'Home', component: HomePage }
+    //   ];
+    // }
+
+    if (!this.auth.isAuthenticated())
+    {
       this.pages = [
-        { title: 'List', component: ListPage }
-      ];
+        {title: 'Login', component: LoginPage}
+      ]
     }
     else {
       this.pages = [
-        { title: 'Home', component: HomePage }
-      ];
+        {title: 'Home', component: HomePage}
+      ]
     }
   }
 
@@ -47,6 +59,6 @@ export class FutLunesApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.push(page.component);
+    this.nav.setRoot(page.component);
   }
 }
