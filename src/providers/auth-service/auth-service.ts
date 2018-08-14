@@ -14,14 +14,15 @@ import { Observable } from '../../../node_modules/rxjs/Observable';
 export class AuthServiceProvider {
 
   private baseApiUrl = ENV.API_BASE_URL;
-  private accessToken : string;
 
   get Token(): string {
-    return this.accessToken;
+    var access_token = localStorage.getItem('access_token');
+    if (access_token != null) return access_token;
+    return null;
   }
   
   set Token(token : string) {
-    this.accessToken = token;
+    localStorage.setItem('access_token', token);
   }
   
   constructor(private http: HttpClient) {}
