@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { HomePage, ListPage, LoginPage } from '../pages/pages';
+import { HomePage, ListPage } from '../pages/pages';
 
 @Component({
   templateUrl: 'app.html'
@@ -10,7 +10,7 @@ import { HomePage, ListPage, LoginPage } from '../pages/pages';
 export class FutLunesApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = LoginPage;
+  rootPage: any = HomePage;
 
   pages: Array<{title: string, component: any}>;
 
@@ -20,8 +20,7 @@ export class FutLunesApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage },
-      { title: 'Login', component: LoginPage }
+      { title: 'List', component: ListPage }
     ];
 
   }

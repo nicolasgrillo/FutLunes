@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, IonicPage } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/providers';
-import { LoginPage } from '../pages';
+import { LoginPage, AdminPage, UserPage } from '../pages';
+
 
 @IonicPage()
 @Component({
@@ -13,8 +14,6 @@ export class HomePage {
   constructor(public navCtrl: NavController,
               private auth : AuthServiceProvider) {}
 
-  user;
-
   ionViewCanEnter(): boolean {
     if(!this.auth.isAuthenticated()){
       this.navCtrl.setRoot(LoginPage);
@@ -23,8 +22,11 @@ export class HomePage {
   }
 
   ionViewWillEnter(): void {
-    if (this.auth.isAuthenticated()){
-      this.user = this.auth.CurrentUser;
+    if (this.auth.isAdmin()){
+      this.navCtrl.setRoot(AdminPage);
+    }
+    else {
+      this.navCtrl.setRoot(UserPage);
     }
   }
 

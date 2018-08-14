@@ -33,7 +33,9 @@ export class LoginPage {
         {
           this.auth.Token = resp;
           this.showSuccess('Authenticated');
-          this.navCtrl.setRoot('HomePage');
+          
+          if (this.auth.isAdmin()) this.navCtrl.setRoot('AdminPage');
+          else this.navCtrl.setRoot('UserPage');
         },
       (err) => 
         {

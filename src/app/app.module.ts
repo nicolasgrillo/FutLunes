@@ -4,13 +4,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { FutLunesApp } from './app.component';
-import { HomePage, ListPage, LoginPage} from '../pages/pages';
+import { HomePage, ListPage, LoginPage, UserPage, AdminPage} from '../pages/pages';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
-import { LoginPageModule } from '../pages/login/login.module';
-import { HomePageModule } from '../pages/home/home.module';
+import { LoginPageModule, HomePageModule, AdminPageModule, UserPageModule } from '../pages/modules';
 
 @NgModule({
   declarations: [
@@ -22,14 +21,18 @@ import { HomePageModule } from '../pages/home/home.module';
     HttpClientModule,
     IonicModule.forRoot(FutLunesApp),
     LoginPageModule,
-    HomePageModule
+    HomePageModule,
+    AdminPageModule,
+    UserPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     FutLunesApp,
     HomePage,
     ListPage,
-    LoginPage
+    LoginPage,
+    AdminPage,
+    UserPage
   ],
   providers: [
     StatusBar,
