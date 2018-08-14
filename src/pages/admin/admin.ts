@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ListPage } from '../pages';
 
 /**
  * Generated class for the AdminPage page.
@@ -15,11 +16,17 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class AdminPage {
 
+  rootPage: any = this;
+
+  pages: Array<{title: string, component: any}>;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.pages = [
+      { title: 'List', component: ListPage }
+    ];
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AdminPage');
+  openPage(page) {
+    this.navCtrl.push(page.component);
   }
-
 }
