@@ -16,17 +16,10 @@ import { ListPage } from '../pages';
 })
 export class AdminPage {
 
-  rootPage: any = this;
-
-  pages: Array<{title: string, component: any}>;
+  matchPage: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.pages = [
-      { title: 'List', component: ListPage }
-    ];
+    this.matchPage = ListPage;
   }
 
-  openPage(page) {
-    this.navCtrl.push(page.component);
-  }
 }
