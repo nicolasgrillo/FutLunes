@@ -15,13 +15,15 @@ export class AuthServiceProvider {
 
   private baseApiUrl = ENV.API_BASE_URL;
 
-  get Token(): string {
+  get Token(): any {
     var access_token = localStorage.getItem('access_token');
+    access_token = JSON.parse(access_token);
     if (access_token != null) return access_token;
     return null;
   }
   
-  set Token(token : string) {
+  set Token(token : any) {
+    token = JSON.stringify(token);
     localStorage.setItem('access_token', token);
   }
   
@@ -42,6 +44,13 @@ export class AuthServiceProvider {
     )
   }
 
-  public isAuthenticated() :boolean {return (localStorage.getItem("access_token") != null)}
+  public tokenHasExpired() : boolean {
+    var expirationDate = new Date(this.Token['.expires']);
+    return ((new Date).getTime() > expirationDate.getTime());
+  }
+
+  public isAuthenticated() : boolean {
+    return (this.Token != null && !(this.tokenHasExpired()));
+  }
   
 }

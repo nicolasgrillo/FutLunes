@@ -31,7 +31,7 @@ export class LoginPage {
     .subscribe(
       (resp) => 
         {
-          localStorage.setItem('access_token', resp['access_token']);
+          this.auth.Token = resp;
           this.showSuccess('Authenticated');
           this.navCtrl.setRoot('HomePage');
         },
