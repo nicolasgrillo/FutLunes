@@ -32,10 +32,7 @@ export class LoginPage {
       (resp) => 
         {
           this.auth.Token = resp;
-          this.showSuccess('Authenticated');
-          
-          if (this.auth.isAdmin()) this.navCtrl.setRoot('AdminPage');
-          else this.navCtrl.setRoot('UserPage');
+          this.navCtrl.pop();
         },
       (err) => 
         {

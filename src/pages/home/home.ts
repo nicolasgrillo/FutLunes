@@ -11,27 +11,33 @@ import { LoginPage, AdminPage, UserPage } from '../pages';
 })
 export class HomePage {
 
+  isAuthenticated: boolean = false;
+  isAdmin: boolean = false;
+
   constructor(public navCtrl: NavController,
               private auth : AuthServiceProvider) {}
 
-  // ionViewCanEnter(): boolean {
-  //   if(!this.auth.isAuthenticated()){
-  //     this.navCtrl.setRoot(LoginPage);
-  //   }
-  //   return this.auth.isAuthenticated();
-  // }
-
   ionViewWillEnter(): void {
-    if (this.auth.isAuthenticated()){
-      if (this.auth.isAdmin()){
-        this.navCtrl.push(AdminPage);
-      }
-      else {
-        this.navCtrl.push(UserPage);
-      }
-    }
+    this.isAuthenticated = this.auth.isAuthenticated();
+    this.isAdmin = this.auth.isAdmin();
   }
 
-  
+  login(): void {
+    this.navCtrl.push(LoginPage)
+  }
+
+  profile(): void {
+    console.log("Something with profile");
+    //this.navCtrl.push(ProfilePage)
+  }
+
+  admin(): void {
+    this.navCtrl.push('AdminPage');
+  }
+
+  logout(): void {
+    this.auth.logOut();
+    this.navCtrl.setRoot(this.navCtrl.getActive().component);
+  }
 
 }

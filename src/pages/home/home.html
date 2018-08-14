@@ -1,9 +1,26 @@
 <ion-header>
   <ion-navbar>
+
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
+
     <ion-title>Home</ion-title>
+
+    <ion-buttons end>
+        <button ion-button icon-only (click)="admin()" *ngIf="isAdmin">
+          <ion-icon name="cog"></ion-icon>
+        </button>
+        <button ion-button icon-only (click)="login()" *ngIf="!isAuthenticated">
+          <ion-icon name="key"></ion-icon>
+        </button>
+        <button ion-button icon-only (click)="profile()" *ngIf="isAuthenticated">
+          <ion-icon name="person"></ion-icon>
+        </button>
+        <button ion-button (click)="logout()" *ngIf="isAuthenticated">
+          Logout
+        </button>        
+      </ion-buttons>
   </ion-navbar>
 </ion-header>
 

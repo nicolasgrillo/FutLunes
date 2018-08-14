@@ -21,30 +21,9 @@ export class FutLunesApp {
               private auth: AuthServiceProvider) {
     this.initializeApp();
 
-    // if (this.auth.isAuthenticated() && this.auth.isAdmin()){
-    //   this.rootPage = AdminPage
-      
-    //   this.pages = [
-    //     { title: 'List', component: ListPage }
-    //   ];
-    // }
-    // else {
-    //   this.pages = [
-    //     { title: 'Home', component: HomePage }
-    //   ];
-    // }
-
-    if (!this.auth.isAuthenticated())
-    {
-      this.pages = [
-        {title: 'Login', component: LoginPage}
-      ]
-    }
-    else {
-      this.pages = [
-        {title: 'Home', component: HomePage}
-      ]
-    }
+    this.pages = [
+      {title: 'Home', component: HomePage}
+    ]
   }
 
   initializeApp() {
