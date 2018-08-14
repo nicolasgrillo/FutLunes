@@ -61,5 +61,9 @@ export class AuthServiceProvider {
   public isAdmin() : boolean {
     return (this.isAuthenticated() && this.CurrentUser == 'admin');
   }
+
+  public logOut() : void {
+    localStorage.removeItem('access_token');
+  }
   
 }
