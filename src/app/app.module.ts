@@ -10,6 +10,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthServiceProvider, PlayerServiceProvider } from '../providers/providers';
 import { LoginPageModule, HomePageModule, AdminPageModule, UserPageModule, ProfilePageModule } from '../pages/modules';
+import { MatchServiceProvider } from '../providers/match-service/match-service';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { LoginPageModule, HomePageModule, AdminPageModule, UserPageModule, Profi
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthServiceProvider,
-    PlayerServiceProvider
+    PlayerServiceProvider,
+    MatchServiceProvider
   ]
 })
 export class AppModule {}
