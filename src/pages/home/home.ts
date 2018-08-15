@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, IonicPage } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/providers';
-import { LoginPage, AdminPage, UserPage } from '../pages';
+import { LoginPage, ProfilePage, AdminPage, UserPage } from '../pages';
 
 
 @IonicPage()
@@ -13,9 +13,13 @@ export class HomePage {
 
   isAuthenticated: boolean = false;
   isAdmin: boolean = false;
+  profilePage: any;
 
   constructor(public navCtrl: NavController,
-              private auth : AuthServiceProvider) {}
+              private auth : AuthServiceProvider) 
+              {
+                this.profilePage = ProfilePage;
+              }
 
   ionViewWillEnter(): void {
     this.isAuthenticated = this.auth.isAuthenticated();

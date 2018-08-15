@@ -36,7 +36,7 @@ export class LoginPage {
         },
       (err) => 
         {
-          this.showError('Access Denied');
+          this.showError('Sin acceso');
           console.log(err);
         }
     )    

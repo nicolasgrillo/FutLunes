@@ -4,12 +4,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { FutLunesApp } from './app.component';
-import { HomePage, ListPage, LoginPage, UserPage, AdminPage} from '../pages/pages';
+import { HomePage, ListPage, LoginPage, UserPage, AdminPage, ProfilePage} from '../pages/pages';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { AuthServiceProvider } from '../providers/auth-service/auth-service';
-import { LoginPageModule, HomePageModule, AdminPageModule, UserPageModule } from '../pages/modules';
+import { AuthServiceProvider, PlayerServiceProvider } from '../providers/providers';
+import { LoginPageModule, HomePageModule, AdminPageModule, UserPageModule, ProfilePageModule } from '../pages/modules';
 
 @NgModule({
   declarations: [
@@ -23,7 +23,8 @@ import { LoginPageModule, HomePageModule, AdminPageModule, UserPageModule } from
     LoginPageModule,
     HomePageModule,
     AdminPageModule,
-    UserPageModule
+    UserPageModule,
+    ProfilePageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -32,13 +33,15 @@ import { LoginPageModule, HomePageModule, AdminPageModule, UserPageModule } from
     ListPage,
     LoginPage,
     AdminPage,
-    UserPage
+    UserPage,
+    ProfilePage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthServiceProvider
+    AuthServiceProvider,
+    PlayerServiceProvider
   ]
 })
 export class AppModule {}

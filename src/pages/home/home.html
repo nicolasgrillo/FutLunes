@@ -14,7 +14,7 @@
         <button ion-button icon-only (click)="login()" *ngIf="!isAuthenticated">
           <ion-icon name="key"></ion-icon>
         </button>
-        <button ion-button icon-only (click)="profile()" *ngIf="isAuthenticated">
+        <button ion-button icon-only [navPush]="profilePage" *ngIf="isAuthenticated">
           <ion-icon name="person"></ion-icon>
         </button>
         <button ion-button (click)="logout()" *ngIf="isAuthenticated">
