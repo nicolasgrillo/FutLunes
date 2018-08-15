@@ -32,5 +32,7 @@
 <ion-content padding>
   <h2>Bienvenido! </h2>
 
-  Presiona <ion-icon name="key"></ion-icon> para acceder  
+  <div *ngIf="!isAuthenticated">
+    Presiona <ion-icon name="key"></ion-icon> para acceder  
+  </div>
 </ion-content>

@@ -1,6 +1,6 @@
 {
-  "name": "Ionic",
-  "short_name": "Ionic",
+  "name": "FutbolLunes",
+  "short_name": "FutbolLunes",
   "start_url": "index.html",
   "display": "standalone",
   "icons": [{
