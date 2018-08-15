@@ -51,32 +51,19 @@ export class AuthServiceProvider {
   }
 
   // Register
-  public register(credentials) {
-    if (credentials.username === null || credentials.email === null || credentials.password === null) {
-      return Observable.throw("Please insert credentials");
-    } else {
-      return Observable.create(observer => {
-
-        this.http.post(
-          this.baseApiUrl + "api/account/register", 
-          credentials, 
+  public register(credentials): Observable<any> {
+    return this.http.post(
+      this.baseApiUrl + "api/account/register", 
+      credentials, 
+        {
+          headers: 
           {
-            headers: {
-              'Authentication': 'Bearer ' + this.Token['access_token'],
-              'Content-type':'application/json'
-            }
+            'Content-type':'application/json'
           }
-        )
-        .map(res => JSON.stringify(res))
-        .subscribe( data => {
-          console.log(data);
-        });
-
-        observer.next(true);
-        observer.complete();
-      });
+        }
+      )      
     }
-  }
+  
 
   public tokenHasExpired() : boolean {
     var expirationDate = new Date(this.Token['.expires']);

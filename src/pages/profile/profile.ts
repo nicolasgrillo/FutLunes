@@ -34,7 +34,7 @@ export class ProfilePage {
     var userInfo = JSON.parse(localStorage.getItem("userInfo"));
     var username = this.auth.CurrentUser
 
-    if (userInfo == null) {      
+    if (userInfo == null && this.auth.isAuthenticated()) {      
       this.showLoading();
       this.playerService.getInfo()
       .subscribe(

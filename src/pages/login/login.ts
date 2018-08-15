@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Loading, LoadingController, AlertController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/providers';
+import { RegisterPage } from '../register/register';
 
 /**
  * Generated class for the LoginPage page.
@@ -16,6 +17,7 @@ import { AuthServiceProvider } from '../../providers/providers';
 })
 export class LoginPage {
   loading: Loading;
+  registerPage: any;
   @ViewChild('username') username: string;
   @ViewChild('password') password: string;
 
@@ -23,7 +25,9 @@ export class LoginPage {
               public navParams: NavParams, 
               public alertCtrl: AlertController,
               public loadingCtrl: LoadingController,
-              private auth : AuthServiceProvider) {  }
+              private auth : AuthServiceProvider) {  
+                this.registerPage = RegisterPage;
+              }
 
   login(){
     this.showLoading();
@@ -47,10 +51,6 @@ export class LoginPage {
           console.log(err);
         }
     )    
-  }
-
-  createAccount(){
-    this.navCtrl.push('RegisterPage');
   }
 
   showLoading() {
