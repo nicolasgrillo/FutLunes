@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Loading, AlertController, LoadingController } from 'ionic-angular/umd';
+import { IonicPage, NavController, NavParams, Loading, AlertController, LoadingController } from 'ionic-angular';
 import { MatchServiceProvider } from '../../providers/providers';
+import { MatchModel, PlayerModel } from '../../models/models';
 
 /**
  * Generated class for the MatchPage page.
@@ -18,8 +19,8 @@ export class MatchPage {
 
   //@ViewChild('username') username: string;
   loading: Loading;
-  match: any;
-  players: any[];
+  match: MatchModel;
+  subscriptions: number;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -30,16 +31,20 @@ export class MatchPage {
 
   ionViewWillEnter() {
     var matchInfo = JSON.parse(localStorage.getItem("currentMatch"));
-
+    this.match = new MatchModel();
     if (matchInfo == null) {
       this.showLoading();
       this.matchService.getCurrentMatch()
       .subscribe(
         (info) =>
         {
-          this.match = info;
-          this.players = info["players"];
-          localStorage.setItem("currentMatch", JSON.stringify(info));
+          this.match.MapUrl = info["locationMapUrl"];
+          this.match.Title = info["locationTitle"];
+          this.match.Limit = info["playerLimit"];
+          this.match.MatchDate = info["matchDate"];
+          this.match.Players = this.loadPlayers(info["players"]);
+          this.subscriptions = this.match.Players.length;
+          localStorage.setItem("currentMatch", JSON.stringify(this.match));
         },
         (err) =>
         {
@@ -50,8 +55,18 @@ export class MatchPage {
     }
     else {
       this.match = matchInfo;
-      this.players = matchInfo["players"];
     }
+  }
+
+  loadPlayers(playerJson : any[] ): PlayerModel[] {
+    var playerList : PlayerModel[] = [];
+    playerJson.forEach(player => {
+      var p = new PlayerModel();
+      p.username = player["user"];
+      p.subscriptionDate = player["subscriptionDate"];
+      playerList.push(p);
+    })
+    return playerList;
   }
 
   showLoading() {
