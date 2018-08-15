@@ -14,6 +14,14 @@
 
 
 <ion-content padding>
+  <ion-card>
+      <ion-item>
+          <ion-icon name="pin" item-start large></ion-icon>
+          <h2>{{match.place}}</h2>
+          <p>11 N. Way St, Madison, WI 53703</p>
+        </ion-item>
+  </ion-card>
+
     <ion-list>
         <ion-item *ngFor="let player of players">
           <ion-avatar item-start>

@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular/umd';
 
 import { FutLunesApp } from './app.component';
 import { HomePage, LoginPage, AdminPage, ProfilePage, MatchPage, RegisterPage} from '../pages/pages';
