@@ -93,6 +93,7 @@ export class AuthServiceProvider {
 
   public logOut() : void {
     localStorage.removeItem('access_token');
+    localStorage.removeItem('userInfo');
   }
   
 }
