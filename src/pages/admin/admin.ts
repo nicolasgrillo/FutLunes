@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ListPage } from '../pages';
+import { MatchPage } from '../pages';
 
 /**
  * Generated class for the AdminPage page.
@@ -19,7 +19,7 @@ export class AdminPage {
   matchPage: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.matchPage = ListPage;
+    this.matchPage = MatchPage;
   }
 
 }

@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { FutLunesApp } from './app.component';
-import { HomePage, ListPage, LoginPage, UserPage, AdminPage, ProfilePage, MatchPage} from '../pages/pages';
+import { HomePage, LoginPage, UserPage, AdminPage, ProfilePage, MatchPage} from '../pages/pages';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -30,7 +30,6 @@ import { LoginPageModule, HomePageModule, AdminPageModule, UserPageModule, Profi
   entryComponents: [
     FutLunesApp,
     HomePage,
-    ListPage,
     LoginPage,
     AdminPage,
     UserPage,

@@ -7,11 +7,16 @@
 
     <ion-title>Home</ion-title>
 
+    <ion-buttons start>
+        <button ion-button icon-only [navPush]="matchPage">
+          <ion-icon name="football"></ion-icon>
+        </button>
+    </ion-buttons>
     <ion-buttons end>
-        <button ion-button icon-only (click)="admin()" *ngIf="isAdmin">
+        <button ion-button icon-only [navPush]="adminPage" *ngIf="isAdmin">
           <ion-icon name="cog"></ion-icon>
         </button>
-        <button ion-button icon-only (click)="login()" *ngIf="!isAuthenticated">
+        <button ion-button icon-only [navPush]="loginPage" *ngIf="!isAuthenticated">
           <ion-icon name="key"></ion-icon>
         </button>
         <button ion-button icon-only [navPush]="profilePage" *ngIf="isAuthenticated">

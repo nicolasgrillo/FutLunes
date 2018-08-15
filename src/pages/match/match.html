@@ -7,12 +7,17 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>match</ion-title>
+    <ion-title>Partido</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+    <ion-list>
+      <button ion-item *ngFor="let player of players">
+        <ion-icon name="man">{{player.user}}</ion-icon>
+        <ion-icon name="clock">{{player.subscriptionDate}}</ion-icon>
+      </button>
+    </ion-list>
 </ion-content>
