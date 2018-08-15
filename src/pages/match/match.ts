@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Loading, AlertController, LoadingController } from 'ionic-angular';
-import { MatchServiceProvider } from '../../providers/providers';
+import { MatchServiceProvider, AuthServiceProvider } from '../../providers/providers';
 import { MatchModel, PlayerModel } from '../../models/models';
 
 /**
@@ -21,17 +21,22 @@ export class MatchPage {
   loading: Loading;
   match: MatchModel;
   subscriptions: number;
+  isAdmin: boolean;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public alertCtrl: AlertController,
               public loadingCtrl: LoadingController,
-              private matchService: MatchServiceProvider) {
+              private matchService: MatchServiceProvider,
+              private auth: AuthServiceProvider) {
   }
 
   ionViewWillEnter() {
+    this.isAdmin = this.auth.isAdmin();
+
     var matchInfo = JSON.parse(localStorage.getItem("currentMatch"));
     this.match = new MatchModel();
+
     if (matchInfo == null) {
       this.showLoading();
       this.matchService.getCurrentMatch()
@@ -43,7 +48,6 @@ export class MatchPage {
           this.match.Limit = info["playerLimit"];
           this.match.MatchDate = info["matchDate"];
           this.match.Players = this.loadPlayers(info["players"]);
-          this.subscriptions = this.match.Players.length;
           localStorage.setItem("currentMatch", JSON.stringify(this.match));
         },
         (err) =>
@@ -55,6 +59,7 @@ export class MatchPage {
     }
     else {
       this.match = matchInfo;
+      this.subscriptions = this.match.Players.length;
     }
   }
 
@@ -66,6 +71,8 @@ export class MatchPage {
       p.subscriptionDate = player["subscriptionDate"];
       playerList.push(p);
     })
+
+    this.subscriptions = playerList.length;
     return playerList;
   }
 
@@ -97,6 +104,10 @@ export class MatchPage {
       buttons: ['OK']
     });
     alert.present();
+  }
+
+  kick(player, match){
+    console.log("should kick here");
   }
 
 }

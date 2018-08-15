@@ -36,11 +36,19 @@
 
   <ion-list *ngIf="match">
       <ion-item *ngFor="let player of match.Players">
-        <ion-avatar item-start>
-          <img src="../../assets/imgs/GenericAvatar.png">
-        </ion-avatar>
-        <h2>{{player.username}}</h2>
-        <ion-icon name="clock">{{player.subscriptionDate}}</ion-icon>
+        <ion-col>
+          <ion-avatar item-start>
+            <img src="../../assets/imgs/GenericAvatar.png">
+          </ion-avatar>
+          <h2>{{player.username}}</h2>
+          <ion-icon name="clock">{{player.subscriptionDate}}</ion-icon>
+        </ion-col>
+        <ion-col>
+          <button *ngIf="isAdmin" (click)="kick(player, match)" ion-button icon-start clear small>
+            <ion-icon name="close"></ion-icon>
+            <div>Kick</div>
+          </button>
+        </ion-col>        
       </ion-item>
     </ion-list>
 </ion-content>
