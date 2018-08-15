@@ -11,6 +11,11 @@
       <ion-icon name="football"></ion-icon>
       Partido
     </button>
+    <button *ngIf="isAdmin" ion-button [navPush]="createMatchPage" icon-start>
+      <ion-icon name="cloud-upload"></ion-icon>
+      Crear Partido
+    </button>
+    
 
     <ion-buttons end>
         <button ion-button icon-only [navPush]="adminPage" *ngIf="isAdmin">

@@ -15,9 +15,19 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class CreateMatchPage {
 
+  match = {
+    locationTitle: '',
+    mapUrl: '',
+    playerLimit: 0,
+    matchDate: Date.now()
+  }
+
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams
   ) { }
 
+  createMatch() {
+    console.log("should create match here")
+  }
 }
