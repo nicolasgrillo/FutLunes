@@ -4,17 +4,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { FutLunesApp } from './app.component';
-import { HomePage, ListPage, LoginPage, UserPage, AdminPage, ProfilePage} from '../pages/pages';
+import { HomePage, ListPage, LoginPage, UserPage, AdminPage, ProfilePage, MatchPage} from '../pages/pages';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthServiceProvider, PlayerServiceProvider, MatchServiceProvider } from '../providers/providers';
-import { LoginPageModule, HomePageModule, AdminPageModule, UserPageModule, ProfilePageModule } from '../pages/modules';
+import { LoginPageModule, HomePageModule, AdminPageModule, UserPageModule, ProfilePageModule, MatchPageModule } from '../pages/modules';
 
 @NgModule({
   declarations: [
-    FutLunesApp,
-    ListPage
+    FutLunesApp
   ],
   imports: [
     BrowserModule,
@@ -24,7 +23,8 @@ import { LoginPageModule, HomePageModule, AdminPageModule, UserPageModule, Profi
     HomePageModule,
     AdminPageModule,
     UserPageModule,
-    ProfilePageModule
+    ProfilePageModule,
+    MatchPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -34,7 +34,8 @@ import { LoginPageModule, HomePageModule, AdminPageModule, UserPageModule, Profi
     LoginPage,
     AdminPage,
     UserPage,
-    ProfilePage
+    ProfilePage,
+    MatchPage
   ],
   providers: [
     StatusBar,
