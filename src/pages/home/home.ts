@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage } from 'ionic-angular';
+import { NavController, IonicPage, AlertController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/providers';
 import { LoginPage, ProfilePage, AdminPage, MatchPage, UserPage } from '../pages';
 
@@ -20,7 +20,8 @@ export class HomePage {
   adminPage: any;
 
   constructor(public navCtrl: NavController,
-              private auth : AuthServiceProvider) 
+              private auth : AuthServiceProvider,
+              public alertCtrl: AlertController) 
               {
                 this.profilePage = ProfilePage;
                 this.matchPage = MatchPage;
@@ -36,6 +37,12 @@ export class HomePage {
   logout(): void {
     this.auth.logOut();
     this.navCtrl.setRoot(this.navCtrl.getActive().component);
+    let alert = this.alertCtrl.create({
+      title: 'Desconexión',
+      subTitle: 'Sesión cerrada',
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
 }

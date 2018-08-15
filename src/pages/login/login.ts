@@ -33,6 +33,13 @@ export class LoginPage {
         {
           this.auth.Token = resp;
           this.navCtrl.pop();
+          
+          let alert = this.alertCtrl.create({
+            title: 'Bienvenido',
+            subTitle: 'Sesión iniciada con éxito',
+            buttons: ['OK']
+          });
+          alert.present();
         },
       (err) => 
         {

@@ -7,11 +7,10 @@
 
     <ion-title>Home</ion-title>
 
-    <ion-buttons start>
-        <button ion-button icon-only [navPush]="matchPage">
-          <ion-icon name="football"></ion-icon>
-        </button>
-    </ion-buttons>
+    <button ion-button icon-only [navPush]="matchPage">
+      <ion-icon name="football"></ion-icon>
+    </button>
+
     <ion-buttons end>
         <button ion-button icon-only [navPush]="adminPage" *ngIf="isAdmin">
           <ion-icon name="cog"></ion-icon>
