@@ -5,10 +5,10 @@
       <ion-icon name="menu"></ion-icon>
     </button>
 
-    <ion-title>Home</ion-title>
+    <ion-title>Futbol Lunes!</ion-title>
 
     <button ion-button icon-only [navPush]="matchPage">
-      <ion-icon name="football"></ion-icon>
+      <ion-icon name="football">Partido</ion-icon>
     </button>
 
     <ion-buttons end>
@@ -22,7 +22,7 @@
           <ion-icon name="person"></ion-icon>
         </button>
         <button ion-button (click)="logout()" *ngIf="isAuthenticated">
-          Logout
+          Desconectar
         </button>        
       </ion-buttons>
   </ion-navbar>
