@@ -8,9 +8,8 @@ import { HomePage, ListPage, LoginPage, UserPage, AdminPage, ProfilePage} from '
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { AuthServiceProvider, PlayerServiceProvider } from '../providers/providers';
+import { AuthServiceProvider, PlayerServiceProvider, MatchServiceProvider } from '../providers/providers';
 import { LoginPageModule, HomePageModule, AdminPageModule, UserPageModule, ProfilePageModule } from '../pages/modules';
-import { MatchServiceProvider } from '../providers/match-service/match-service';
 
 @NgModule({
   declarations: [
