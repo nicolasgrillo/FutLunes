@@ -7,7 +7,7 @@ export class StorageProvider {
   constructor(private storage: Storage) {}
 
   public setKey(key : string, value : string){
-    this.storage.set(key, value);
+    this.storage.set(key, JSON.stringify(value));
   }
 
   public getKey (key: string) : any {
@@ -24,5 +24,9 @@ export class StorageProvider {
         return null;
       }
     )
+  }
+
+  public getJsonByKey (key: string) : any {
+    return JSON.parse(this.getKey(key));
   }
 }
