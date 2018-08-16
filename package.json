@@ -8,7 +8,8 @@
     "start": "node server.js",
     "clean": "ionic-app-scripts clean",
     "build": "ionic-app-scripts build",
-    "lint": "ionic-app-scripts lint"
+    "lint": "ionic-app-scripts lint",
+    "postinstall": "ionic-app-scripts build"
   },
   "dependencies": {
     "@angular/animations": "5.2.11",
