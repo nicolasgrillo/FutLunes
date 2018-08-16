@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Loading, AlertController, LoadingController } from 'ionic-angular';
-import { MatchServiceProvider } from '../../providers/providers';
+import { MatchServiceProvider, AuthServiceProvider } from '../../providers/providers';
+import { MatchModel, PlayerModel } from '../../models/models';
 
 /**
  * Generated class for the MatchPage page.
@@ -18,18 +19,23 @@ export class MatchPage {
 
   //@ViewChild('username') username: string;
   loading: Loading;
-  match: any;
-  players: any[];
+  match: MatchModel;
+  subscriptions: number;
+  isAdmin: boolean;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public alertCtrl: AlertController,
               public loadingCtrl: LoadingController,
-              private matchService: MatchServiceProvider) {
+              private matchService: MatchServiceProvider,
+              private auth: AuthServiceProvider) {
   }
 
   ionViewWillEnter() {
+    this.isAdmin = this.auth.isAdmin();
+
     var matchInfo = JSON.parse(localStorage.getItem("currentMatch"));
+    this.match = new MatchModel();
 
     if (matchInfo == null) {
       this.showLoading();
@@ -37,9 +43,12 @@ export class MatchPage {
       .subscribe(
         (info) =>
         {
-          this.match = info;
-          this.players = info["players"];
-          localStorage.setItem("currentMatch", JSON.stringify(info));
+          this.match.MapUrl = info["locationMapUrl"];
+          this.match.Title = info["locationTitle"];
+          this.match.Limit = info["playerLimit"];
+          this.match.MatchDate = info["matchDate"];
+          this.match.Players = this.loadPlayers(info["players"]);
+          localStorage.setItem("currentMatch", JSON.stringify(this.match));
         },
         (err) =>
         {
@@ -50,8 +59,21 @@ export class MatchPage {
     }
     else {
       this.match = matchInfo;
-      this.players = matchInfo["players"];
+      this.subscriptions = this.match.Players.length;
     }
+  }
+
+  loadPlayers(playerJson : any[] ): PlayerModel[] {
+    var playerList : PlayerModel[] = [];
+    playerJson.forEach(player => {
+      var p = new PlayerModel();
+      p.username = player["user"];
+      p.subscriptionDate = player["subscriptionDate"];
+      playerList.push(p);
+    })
+
+    this.subscriptions = playerList.length;
+    return playerList;
   }
 
   showLoading() {
@@ -82,6 +104,10 @@ export class MatchPage {
       buttons: ['OK']
     });
     alert.present();
+  }
+
+  kick(player, match){
+    console.log("should kick here");
   }
 
 }

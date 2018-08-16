@@ -4,12 +4,6 @@
   "author": "Nicolas Grillo",
   "homepage": "",
   "private": true,
-  "scripts": {
-    "start": "node server.js",
-    "clean": "ionic-app-scripts clean",
-    "build": "ionic-app-scripts build",
-    "lint": "ionic-app-scripts lint"
-  },
   "dependencies": {
     "@angular/animations": "5.2.11",
     "@angular/common": "5.2.11",

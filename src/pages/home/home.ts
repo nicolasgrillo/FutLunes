@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, IonicPage, AlertController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/providers';
 import { LoginPage, ProfilePage, AdminPage, MatchPage } from '../pages';
+import { CreateMatchPage } from '../create-match/create-match';
 
 
 @IonicPage()
@@ -18,6 +19,7 @@ export class HomePage {
   matchPage: any;
   loginPage: any;
   adminPage: any;
+  createMatchPage: any;
 
   constructor(public navCtrl: NavController,
               private auth : AuthServiceProvider,
@@ -27,6 +29,7 @@ export class HomePage {
                 this.matchPage = MatchPage;
                 this.loginPage = LoginPage;
                 this.adminPage = AdminPage;
+                this.createMatchPage = CreateMatchPage;
               }
 
   ionViewWillEnter(): void {

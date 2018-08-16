@@ -1,1 +1,2 @@
-export { User } from './user';
+export { PlayerModel } from './playerModel';
+export { MatchModel } from './matchModel';
