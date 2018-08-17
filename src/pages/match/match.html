@@ -14,41 +14,50 @@
 
 
 <ion-content padding>
-  <ion-card *ngIf="match">
-      <ion-item>
-          <ion-icon name="pin" item-start large></ion-icon>
-          <h2>{{match.Title}}</h2>
-          <p>{{match.MatchDate}}</p>
-        </ion-item>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-sm>
+          <ion-card *ngIf="match">
+              <!-- Check h&w -->
+              <img src="../../assets/imgs/cancha.jpg">
+              <ion-item>
+                <ion-icon name="pin" item-start large></ion-icon>
+                <h2>{{match.Title}}</h2>
+                <p>{{match.MatchDate}}</p>
+              </ion-item>
+              <ion-item>
+                <ion-icon name="people" item-start large ></ion-icon>
+                <h2>{{subscriptions}} / {{match.Limit}}</h2>
+              </ion-item>
+          
+              <ion-item>
+                <button ion-button icon-start>
+                  <ion-icon name="navigate"></ion-icon>
+                  {{match.MapUrl}}
+                </button>
+              </ion-item>
+            </ion-card>
+      </ion-col>
+      <ion-col col-sm>
+        <ion-list no-lines *ngIf="match">
+            <ion-item *ngFor="let player of match.Players">
+              <ion-avatar item-start>
+                <img src="../../assets/imgs/GenericAvatar.png">
+              </ion-avatar>
+                <h2>{{player.user}}</h2>
+                <p>{{player.subscriptionDate}}</p>
+                <!-- <ion-col>
+                  <button *ngIf="isAdmin" (click)="kick(player, match)" ion-button icon-start clear small>
+                    <ion-icon name="close"></ion-icon>
+                    <div>Kick</div>
+                  </button>
+                </ion-col>                      -->
+            </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
 
-        <ion-item>
-            <ion-icon name="people" item-start large ></ion-icon>
-            <h2>{{subscriptions}} / {{match.Limit}}</h2>
-          </ion-item>
-
-        <ion-item>
-          <button ion-button icon-start clear item-end>
-            <ion-icon name="navigate"></ion-icon>
-            {{match.MapUrl}}
-          </button>
-        </ion-item>
-  </ion-card>
-
-  <ion-list *ngIf="match">
-      <ion-item *ngFor="let player of match.Players">
-        <ion-col>
-          <ion-avatar item-start>
-            <img src="../../assets/imgs/GenericAvatar.png">
-          </ion-avatar>
-          <h2>{{player.username}}</h2>
-          <ion-icon name="clock">{{player.subscriptionDate}}</ion-icon>
-        </ion-col>
-        <ion-col>
-          <button *ngIf="isAdmin" (click)="kick(player, match)" ion-button icon-start clear small>
-            <ion-icon name="close"></ion-icon>
-            <div>Kick</div>
-          </button>
-        </ion-col>        
-      </ion-item>
-    </ion-list>
+  
 </ion-content>
