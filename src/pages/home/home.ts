@@ -47,6 +47,7 @@ export class HomePage {
   
   logout(): void {
     this.storage.remove('access_token');
+    this.storage.remove('userInfo');
     this.navCtrl.setRoot(this.navCtrl.getActive().component);
     let alert = this.alertCtrl.create({
       title: 'Desconexión',
