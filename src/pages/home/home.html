@@ -7,37 +7,33 @@
 
     <ion-title>Futbol Lunes!</ion-title>
 
-    <button ion-button [navPush]="matchPage" icon-start>
-      <ion-icon name="football"></ion-icon>
-      Partido
-    </button>
-    <button *ngIf="isAdmin" ion-button [navPush]="createMatchPage" icon-start>
-      <ion-icon name="cloud-upload"></ion-icon>
-      Crear Partido
-    </button>
-    
-
     <ion-buttons end>
-        <button ion-button icon-only [navPush]="adminPage" *ngIf="isAdmin">
+        <button ion-button icon-only solid [navPush]="adminPage" *ngIf="isAdmin">
           <ion-icon name="cog"></ion-icon>
         </button>
-        <button ion-button icon-only [navPush]="loginPage" *ngIf="!isAuthenticated">
-          <ion-icon name="key"></ion-icon>
-        </button>
-        <button ion-button icon-only [navPush]="profilePage" *ngIf="isAuthenticated">
+        <button ion-button icon-only solid [navPush]="profilePage" *ngIf="isAuthenticated" >
           <ion-icon name="person"></ion-icon>
         </button>
-        <button ion-button (click)="logout()" *ngIf="isAuthenticated">
-          Desconectar
+        <button icon-start ion-button solid round [navPush]="loginPage" *ngIf="!isAuthenticated" color="secondary">
+          <ion-icon name="md-log-in"></ion-icon>
         </button>        
-      </ion-buttons>
+        <button icon-start ion-button solid round (click)="logout()" *ngIf="isAuthenticated" color="danger">
+          <ion-icon name="md-log-out"></ion-icon>
+        </button>        
+    </ion-buttons>
+
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <h2>Bienvenido! </h2>
 
-  <div *ngIf="!isAuthenticated">
-    Presiona <ion-icon name="key"></ion-icon> para acceder  
-  </div>
+  <button ion-button [navPush]="matchPage" icon-start>
+    <ion-icon name="football"></ion-icon>
+    Ir al partido
+  </button>
+  <button *ngIf="isAdmin" ion-button [navPush]="createMatchPage" icon-start>
+    <ion-icon name="cloud-upload"></ion-icon>
+    Crear nuevo partido
+  </button>
 </ion-content>
