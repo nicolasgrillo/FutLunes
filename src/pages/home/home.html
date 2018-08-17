@@ -26,14 +26,21 @@
 </ion-header>
 
 <ion-content padding>
-  <h2>Bienvenido! </h2>
+  
+  <ion-list no-lines>
+    <ion-item>
+      <button ion-button icon-start [navPush]="matchPage">
+        <ion-icon name="football"></ion-icon>
+        <h2>Ir al partido</h2>
+      </button>
+    </ion-item>
+    <ion-item>
+      <button ion-button icon-start [navPush]="createMatchPage" *ngIf="isAdmin">
+        <ion-icon name="cloud-upload"></ion-icon>
+        <h2>Crear nuevo partido</h2>
+      </button>
+    </ion-item>
+  </ion-list>  
 
-  <button ion-button [navPush]="matchPage" icon-start>
-    <ion-icon name="football"></ion-icon>
-    Ir al partido
-  </button>
-  <button *ngIf="isAdmin" ion-button [navPush]="createMatchPage" icon-start>
-    <ion-icon name="cloud-upload"></ion-icon>
-    Crear nuevo partido
-  </button>
+  
 </ion-content>
