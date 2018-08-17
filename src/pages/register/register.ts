@@ -1,14 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthServiceProvider } from '../../providers/providers';
-
-/**
- * Generated class for the RegisterPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { IToken } from '../../models/IToken';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -26,13 +20,15 @@ export class RegisterPage {
     confirmPassword: ''
   }
 
+  token : IToken;
   createSuccess: boolean = false;
   loading: Loading;
 
   constructor(public navCtrl: NavController, 
               private auth: AuthServiceProvider,
               private loadingCtrl: LoadingController,
-              private alertCtrl: AlertController) {
+              private alertCtrl: AlertController,
+              private storage: Storage) {
     
   }
 
@@ -48,7 +44,8 @@ export class RegisterPage {
 
             this.auth.getToken(this.credentials.username, this.credentials.password).subscribe(
               (resp) => {
-                this.auth.Token = resp;
+                this.token = resp;
+                this.storage.set('access_token', JSON.stringify(resp));
               },
               (err) => {
                 console.log(err.message);

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Loading, AlertController, LoadingController } from 'ionic-angular';
-import { MatchServiceProvider, AuthServiceProvider, StorageProvider } from '../../providers/providers';
-import { MatchModel, PlayerModel } from '../../models/models';
+import { MatchServiceProvider, AuthServiceProvider } from '../../providers/providers';
+import { Match, User } from '../../models/models';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -10,9 +11,9 @@ import { MatchModel, PlayerModel } from '../../models/models';
 })
 export class MatchPage {
 
-  //@ViewChild('username') username: string;
   loading: Loading;
-  match: MatchModel;
+  match: Match;
+  user: User;
   subscriptions: number;
   isAdmin: boolean;
 
@@ -22,54 +23,49 @@ export class MatchPage {
               public loadingCtrl: LoadingController,
               private matchService: MatchServiceProvider,
               private auth: AuthServiceProvider,
-              private storage: StorageProvider) {
+              private storage: Storage) {
   }
 
   ionViewWillEnter() {
-    this.isAdmin = this.auth.isAdmin();
+    this.storage.get("currentMatch").then(
+      (matchInfo) => {
+        this.match = JSON.parse(matchInfo)
+        if (this.match == null) this.matchCallback();
+        else this.subscriptions = this.match.Players.length;
+      }
+    );
+    this.storage.get("userInfo").then(
+      (userInfo) => {
+        this.user = JSON.parse(userInfo)
+        this.isAdmin = this.user.username == 'admin';
+      }
+    );   
+  }  
 
-    var matchInfo = this.storage.getKey("currentMatch");
-    this.match = new MatchModel();
+  private matchCallback(){
+    this.showLoading();
+    this.matchService.getCurrentMatch()
+    .subscribe(
+      (matchInfo) =>
+      {
+        var tempMatch = new Match();
+        tempMatch.MapUrl = matchInfo.locationMapUrl;
+        tempMatch.Title = matchInfo.locationTitle;
+        tempMatch.Limit = matchInfo.playerLimit;
+        tempMatch.MatchDate = matchInfo.matchDate;
+        tempMatch.Players = matchInfo.players;
 
-    if (matchInfo == null) {      
-      this.showLoading();
-      this.matchService.getCurrentMatch()
-      .subscribe(
-        (info) =>
-        {
-          this.match.MapUrl = info["locationMapUrl"];
-          this.match.Title = info["locationTitle"];
-          this.match.Limit = info["playerLimit"];
-          this.match.MatchDate = info["matchDate"];
-          this.match.Players = this.loadPlayers(info["players"]);
-          //revisar V
-          this.storage.setKey("currentMatch", this.match);
-        },
-        (err) =>
-        {
-          this.showError('Error cargando partido');
-          console.log(err);
-        }
-      )
-    }
-    else {
-      matchInfo = JSON.parse(matchInfo);
-      this.match = matchInfo;
-      this.subscriptions = this.match.Players.length;
-    }
-  }
+        this.match = tempMatch;
 
-  loadPlayers(playerJson : any[] ): PlayerModel[] {
-    var playerList : PlayerModel[] = [];
-    playerJson.forEach(player => {
-      var p = new PlayerModel();
-      p.username = player["user"];
-      p.subscriptionDate = player["subscriptionDate"];
-      playerList.push(p);
-    })
-
-    this.subscriptions = playerList.length;
-    return playerList;
+        this.storage.set("currentMatch", JSON.stringify(this.match));
+        this.subscriptions = this.match.Players.length;
+      },
+      (err) =>
+      {
+        this.showError('Error cargando partido');
+        console.log(err);
+      }
+    )
   }
 
   showLoading() {

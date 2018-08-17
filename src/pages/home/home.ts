@@ -3,7 +3,8 @@ import { NavController, IonicPage, AlertController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/providers';
 import { LoginPage, ProfilePage, AdminPage, MatchPage } from '../pages';
 import { CreateMatchPage } from '../create-match/create-match';
-
+import { IToken } from '../../models/models';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -12,6 +13,7 @@ import { CreateMatchPage } from '../create-match/create-match';
 })
 export class HomePage {
 
+  token : IToken;
   isAuthenticated: boolean = false;
   isAdmin: boolean = false;
 
@@ -23,7 +25,8 @@ export class HomePage {
 
   constructor(public navCtrl: NavController,
               private auth : AuthServiceProvider,
-              public alertCtrl: AlertController) 
+              public alertCtrl: AlertController,
+              private storage : Storage) 
               {
                 this.profilePage = ProfilePage;
                 this.matchPage = MatchPage;
@@ -33,12 +36,17 @@ export class HomePage {
               }
 
   ionViewWillEnter(): void {
-    this.isAuthenticated = this.auth.isAuthenticated();
-    this.isAdmin = this.auth.isAdmin();
+    this.storage.get('access_token').then((accessToken) => {
+      if (accessToken != null){
+        this.token = JSON.parse(accessToken);
+        this.isAuthenticated = (this.token != null);
+        this.isAdmin = (this.token.userName == 'admin');
+      }
+    });    
   }
   
   logout(): void {
-    this.auth.logOut();
+    this.storage.remove('access_token');
     this.navCtrl.setRoot(this.navCtrl.getActive().component);
     let alert = this.alertCtrl.create({
       title: 'Desconexión',

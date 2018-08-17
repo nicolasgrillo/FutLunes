@@ -2,13 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Loading, LoadingController, AlertController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/providers';
 import { RegisterPage } from '../register/register';
-
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -25,7 +19,8 @@ export class LoginPage {
               public navParams: NavParams, 
               public alertCtrl: AlertController,
               public loadingCtrl: LoadingController,
-              private auth : AuthServiceProvider) {  
+              private auth : AuthServiceProvider,
+              private storage : Storage) {  
                 this.registerPage = RegisterPage;
               }
 
@@ -35,7 +30,7 @@ export class LoginPage {
     .subscribe(
       (resp) => 
         {
-          this.auth.Token = resp;
+          this.storage.set('access_token', JSON.stringify(resp));
           this.navCtrl.pop();
           
           let alert = this.alertCtrl.create({

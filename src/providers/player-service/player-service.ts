@@ -18,9 +18,7 @@ export class PlayerServiceProvider {
   constructor(private http: HttpClient,
               private auth: AuthServiceProvider) {}
 
-  public getInfo(): Observable<any> {
-    var accesstoken = this.auth.Token["access_token"];
-    var username = this.auth.CurrentUser;
+  public getInfo(username : string, accesstoken : string): Observable<any> {
     return this.http.get(
       this.baseApiUrl + "api/players/" + username + "/",
       {

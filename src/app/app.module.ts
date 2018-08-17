@@ -8,7 +8,7 @@ import { HomePage, LoginPage, AdminPage, ProfilePage, MatchPage, RegisterPage, C
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { AuthServiceProvider, PlayerServiceProvider, MatchServiceProvider, StorageProvider } from '../providers/providers';
+import { AuthServiceProvider, PlayerServiceProvider, MatchServiceProvider } from '../providers/providers';
 import { LoginPageModule, HomePageModule, AdminPageModule, ProfilePageModule, MatchPageModule, RegisterPageModule, CreateMatchPageModule } from '../pages/modules';
 
 @NgModule({
@@ -45,8 +45,7 @@ import { LoginPageModule, HomePageModule, AdminPageModule, ProfilePageModule, Ma
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthServiceProvider,
     PlayerServiceProvider,
-    MatchServiceProvider,
-    StorageProvider
+    MatchServiceProvider
   ]
 })
 export class AppModule {}

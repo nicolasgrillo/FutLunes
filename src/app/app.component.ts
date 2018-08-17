@@ -2,8 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { HomePage, AdminPage, LoginPage } from '../pages/pages';
-import { AuthServiceProvider } from '../providers/providers';
+import { HomePage } from '../pages/pages';
 
 @Component({
   templateUrl: 'app.html'
@@ -17,8 +16,7 @@ export class FutLunesApp {
 
   constructor(public platform: Platform, 
               public statusBar: StatusBar, 
-              public splashScreen: SplashScreen,
-              private auth: AuthServiceProvider) {
+              public splashScreen: SplashScreen) {
     this.initializeApp();
 
     this.pages = [
