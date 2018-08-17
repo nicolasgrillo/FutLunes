@@ -3,29 +3,26 @@ import { Injectable } from '@angular/core';
 import { environment as ENV } from '../../environments/environment';
 import { Observable } from '../../../node_modules/rxjs/Observable';
 import 'rxjs/add/operator/map';
-
-/*
-  Generated class for the AuthServiceProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
+import { StorageProvider } from '../storage/storage';
 
 @Injectable()
 export class AuthServiceProvider {
 
   private baseApiUrl = ENV.API_BASE_URL;
 
+  constructor(
+    private http: HttpClient,
+    private storage : StorageProvider
+  ) {}
+
   get Token(): any {
-    var access_token = localStorage.getItem('access_token');
-    access_token = JSON.parse(access_token);
+    var access_token = this.storage.getKey("access_token");
     if (access_token != null) return access_token;
     return null;
   }
   
   set Token(token : any) {
-    token = JSON.stringify(token);
-    localStorage.setItem('access_token', token);
+    this.storage.setKey("access_token", token);    
   }
 
   get CurrentUser() : string {
@@ -33,7 +30,7 @@ export class AuthServiceProvider {
     return null;
   }
   
-  constructor(private http: HttpClient) {}
+  
 
   public getToken(user : string, password: string): Observable<any> {
 
@@ -79,8 +76,8 @@ export class AuthServiceProvider {
   }
 
   public logOut() : void {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('userInfo');
+    this.storage.removeKey("access_token");
+    this.storage.removeKey("userInfo");
   }
   
 }

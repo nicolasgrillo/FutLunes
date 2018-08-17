@@ -1,14 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Loading, AlertController, LoadingController } from 'ionic-angular';
-import { MatchServiceProvider, AuthServiceProvider } from '../../providers/providers';
+import { MatchServiceProvider, AuthServiceProvider, StorageProvider } from '../../providers/providers';
 import { MatchModel, PlayerModel } from '../../models/models';
-
-/**
- * Generated class for the MatchPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -28,16 +21,17 @@ export class MatchPage {
               public alertCtrl: AlertController,
               public loadingCtrl: LoadingController,
               private matchService: MatchServiceProvider,
-              private auth: AuthServiceProvider) {
+              private auth: AuthServiceProvider,
+              private storage: StorageProvider) {
   }
 
   ionViewWillEnter() {
     this.isAdmin = this.auth.isAdmin();
 
-    var matchInfo = JSON.parse(localStorage.getItem("currentMatch"));
+    var matchInfo = this.storage.getKey("currentMatch");
     this.match = new MatchModel();
 
-    if (matchInfo == null) {
+    if (matchInfo == null) {      
       this.showLoading();
       this.matchService.getCurrentMatch()
       .subscribe(
@@ -48,7 +42,8 @@ export class MatchPage {
           this.match.Limit = info["playerLimit"];
           this.match.MatchDate = info["matchDate"];
           this.match.Players = this.loadPlayers(info["players"]);
-          localStorage.setItem("currentMatch", JSON.stringify(this.match));
+          //revisar V
+          this.storage.setKey("currentMatch", this.match);
         },
         (err) =>
         {
@@ -58,6 +53,7 @@ export class MatchPage {
       )
     }
     else {
+      matchInfo = JSON.parse(matchInfo);
       this.match = matchInfo;
       this.subscriptions = this.match.Players.length;
     }

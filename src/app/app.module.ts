@@ -2,13 +2,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-
+import { IonicStorageModule } from '@ionic/storage';
 import { FutLunesApp } from './app.component';
 import { HomePage, LoginPage, AdminPage, ProfilePage, MatchPage, RegisterPage, CreateMatchPage} from '../pages/pages';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { AuthServiceProvider, PlayerServiceProvider, MatchServiceProvider } from '../providers/providers';
+import { AuthServiceProvider, PlayerServiceProvider, MatchServiceProvider, StorageProvider } from '../providers/providers';
 import { LoginPageModule, HomePageModule, AdminPageModule, ProfilePageModule, MatchPageModule, RegisterPageModule, CreateMatchPageModule } from '../pages/modules';
 
 @NgModule({
@@ -19,6 +19,7 @@ import { LoginPageModule, HomePageModule, AdminPageModule, ProfilePageModule, Ma
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(FutLunesApp),
+    IonicStorageModule.forRoot(),
     LoginPageModule,
     HomePageModule,
     AdminPageModule,
@@ -44,7 +45,8 @@ import { LoginPageModule, HomePageModule, AdminPageModule, ProfilePageModule, Ma
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthServiceProvider,
     PlayerServiceProvider,
-    MatchServiceProvider
+    MatchServiceProvider,
+    StorageProvider
   ]
 })
 export class AppModule {}

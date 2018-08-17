@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
-import { AuthServiceProvider, PlayerServiceProvider } from '../../providers/providers';
+import { AuthServiceProvider, PlayerServiceProvider, StorageProvider } from '../../providers/providers';
 
 /**
  * Generated class for the ProfilePage page.
@@ -27,11 +27,12 @@ export class ProfilePage {
               public alertCtrl: AlertController,
               public loadingCtrl: LoadingController,
               private auth : AuthServiceProvider,
-              private playerService: PlayerServiceProvider) {
+              private playerService: PlayerServiceProvider,
+              private storage: StorageProvider) {
   }
 
   ionViewWillEnter() {
-    var userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    var userInfo = JSON.parse(this.storage.getKey("userInfo"));
     var username = this.auth.CurrentUser
 
     if (userInfo == null && this.auth.isAuthenticated()) {      
@@ -45,7 +46,7 @@ export class ProfilePage {
           this.lastName = info.lastName;
           this.email = info.email;
           this.appearances = info.appearances;
-          localStorage.setItem("userInfo", JSON.stringify(info));
+          this.storage.setKey("userInfo", info);
         },
         (err) =>
         {
