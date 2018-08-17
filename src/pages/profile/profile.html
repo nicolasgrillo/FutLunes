@@ -8,7 +8,41 @@
 
 
 <ion-content padding>
-  <ion-grid style="height: 100%">
+
+    <ion-card>
+
+        <ion-item>
+          <ion-avatar item-start>
+            <img src="../../assets/imgs/GenericAvatar.png">
+          </ion-avatar>
+          <h2> @ {{username}} </h2>
+          <p> {{firstName}} {{lastName}} </p>
+        </ion-item>
+      
+        <ion-row>
+          <ion-col>
+            <button ion-button icon-start clear small>
+              <ion-icon name="mail"></ion-icon>
+              <div>{{email}}</div>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button icon-start clear small>
+              <ion-icon name="hand"></ion-icon>
+              <div>{{appearances}}</div>
+            </button>
+          </ion-col>
+          <ion-col center text-center>
+            <button ion-button icon-start clear small>
+              <ion-icon name="share-alt"></ion-icon>
+              <div>Actualizar</div>
+            </button>
+          </ion-col>
+        </ion-row>
+      
+      </ion-card>
+
+  <!-- <ion-grid style="height: 100%">
       <ion-row justify-content-center align-items-center style="height: 100%">
         <ion-card style="max-width: 25%">
           <ion-row>
@@ -31,11 +65,9 @@
             <ion-badge item-end>{{appearances}} partidos jugados</ion-badge>
           </ion-row>
           <ion-row>
-            <!-- <button ion-button [navPush]="updateProfilePage"> -->
             <button ion-button>
               <ion-badge>Actualizar</ion-badge>
             </button>
-            <!-- <button ion-button [navPush]="updatePasswordPage"> -->
             <button ion-button>
                 <ion-badge>Cambiar contraseña</ion-badge>
             </button>
@@ -43,7 +75,7 @@
         </ion-card>
       </ion-row>
       
-  </ion-grid>
+  </ion-grid> -->
 
   
 
