@@ -32,6 +32,28 @@ export class CreateMatchPage {
     this.match.PlayerLimit = 10;
    }
 
+   confirm(){
+    let alert = this.alertCtrl.create({
+      title: 'Confirme partido',
+      message: 'Esta seguro que desea crear el partido con estos datos? Se eliminará el partido actual, incluyendo sus inscriptos. Verifique si es necesario concluir el partido actual previamente.',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {            
+          }
+        },
+        {
+          text: 'Confirmar',
+          handler: () => {
+            this.createMatch();
+          }
+        }
+      ]
+    });
+    alert.present();
+   }
+
   createMatch() {
     this.loading = this.loadProvider.showLoading(this.loading,this.loadingCtrl);
     this.storage.get('access_token').then(
