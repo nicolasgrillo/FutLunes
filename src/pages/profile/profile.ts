@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
-import { PlayerServiceProvider } from '../../providers/providers';
+import { PlayerServiceProvider, LoadingProvider } from '../../providers/providers';
 import { Storage } from '@ionic/storage';
 import { User, IToken } from '../../models/models';
 
@@ -25,10 +25,12 @@ export class ProfilePage {
               public alertCtrl: AlertController,
               public loadingCtrl: LoadingController,
               private playerService: PlayerServiceProvider,
-              private storage: Storage) {
+              private storage: Storage,
+              private loadProvider: LoadingProvider) {
   }
 
   ionViewWillEnter() {
+    this.loading = this.loadProvider.showLoading(this.loading, this.loadingCtrl);
     this.storage.get("userInfo").then(
       (info) => {
         this.userInfo = JSON.parse(info)
@@ -46,15 +48,14 @@ export class ProfilePage {
             }
           }
         );
-      }
-    );
 
-    
+        this.loading = this.loadProvider.dismissLoading(this.loading);
+      }
+    );    
   }
 
   private profileCallback(): void{
     if (this.userInfo == null && this.accessToken != null) {      
-      this.showLoading();
       this.playerService.getInfo(this.accessToken.userName, this.accessToken.access_token)
       .subscribe(
         (info) =>
@@ -77,7 +78,7 @@ export class ProfilePage {
         },
         (err) =>
         {
-          this.showError('Error cargando perfil');
+          this.loading = this.loadProvider.showError(this.loading, this.alertCtrl, 'Error cargando perfil');
           console.log(err);
         }
       )
@@ -89,35 +90,4 @@ export class ProfilePage {
     console.log("Update clicked");
     // Update profile here
   }
-
-  showLoading() {
-    this.loading = this.loadingCtrl.create({
-      content: 'Please wait...',
-      dismissOnPageChange: true
-    });
-    this.loading.present();
-  }
-
-  showSuccess(text) {
-    this.loading.dismiss();
- 
-    let alert = this.alertCtrl.create({
-      title: 'Success',
-      subTitle: text,
-      buttons: ['OK']
-    });
-    alert.present();
-  }
- 
-  showError(text) {
-    this.loading.dismiss();
- 
-    let alert = this.alertCtrl.create({
-      title: 'Fail',
-      subTitle: text,
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-
 }

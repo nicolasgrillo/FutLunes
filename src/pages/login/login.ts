@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, Loading, LoadingController, AlertC
 import { AuthServiceProvider } from '../../providers/providers';
 import { RegisterPage } from '../register/register';
 import { Storage } from '@ionic/storage';
+import { LoadingProvider } from '../../providers/loading/loading';
 
 @IonicPage()
 @Component({
@@ -20,62 +21,26 @@ export class LoginPage {
               public alertCtrl: AlertController,
               public loadingCtrl: LoadingController,
               private auth : AuthServiceProvider,
-              private storage : Storage) {  
+              private storage : Storage,
+              private loadProvider: LoadingProvider) {  
                 this.registerPage = RegisterPage;
               }
 
   login(){
-    this.showLoading();
+    this.loading = this.loadProvider.showLoading(this.loading, this.loadingCtrl);
     this.auth.getToken(this.username, this.password)
     .subscribe(
       (resp) => 
         {
           this.storage.set('access_token', JSON.stringify(resp));
           this.navCtrl.pop();
-          
-          let alert = this.alertCtrl.create({
-            title: 'Bienvenido',
-            subTitle: 'Sesión iniciada con éxito',
-            buttons: ['OK']
-          });
-          alert.present();
+          this.loading = this.loadProvider.showSuccess(this.loading, this.alertCtrl, "Sesión iniciada con éxito.")          
         },
       (err) => 
         {
-          this.showError('Sin acceso');
+          this.loading = this.loadProvider.showError(this.loading, this.alertCtrl, "Sin acceso");
           console.log(err);
         }
     )    
   }
-
-  showLoading() {
-    this.loading = this.loadingCtrl.create({
-      content: 'Please wait...',
-      dismissOnPageChange: true
-    });
-    this.loading.present();
-  }
-
-  showSuccess(text) {
-    this.loading.dismiss();
- 
-    let alert = this.alertCtrl.create({
-      title: 'Success',
-      subTitle: text,
-      buttons: ['OK']
-    });
-    alert.present();
-  }
- 
-  showError(text) {
-    this.loading.dismiss();
- 
-    let alert = this.alertCtrl.create({
-      title: 'Fail',
-      subTitle: text,
-      buttons: ['OK']
-    });
-    alert.present();
-  }  
-
 }

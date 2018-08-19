@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, AlertController, LoadingController
 import { AuthServiceProvider } from '../../providers/providers';
 import { IToken } from '../../models/IToken';
 import { Storage } from '@ionic/storage';
+import { LoadingProvider } from '../../providers/loading/loading';
+import { HomePage } from '../pages';
 
 @IonicPage()
 @Component({
@@ -28,14 +30,15 @@ export class RegisterPage {
               private auth: AuthServiceProvider,
               private loadingCtrl: LoadingController,
               private alertCtrl: AlertController,
-              private storage: Storage) {
+              private storage: Storage,
+              private loadProvider: LoadingProvider) {
     
   }
 
   register() {
-    this.showLoading();
+    this.loading = this.loadProvider.showLoading(this.loading, this.loadingCtrl);
     if (this.credentials.password != this.credentials.confirmPassword) {
-      this.showPopup("Error", "La contraseña no coincide con la confirmación.");
+      this.loading = this.loadProvider.showError(this.loading, this.alertCtrl, "La contraseña no coincide con la confirmación.")
     }
     else {
       this.auth.register(this.credentials).subscribe(
@@ -51,24 +54,15 @@ export class RegisterPage {
                 console.log(err.message);
               }
             )
-
-            this.showPopup("Exito","Usuario creado.");  
+            this.loading = this.loadProvider.showRegisterSuccess(this.loading, this.navCtrl, this.alertCtrl, "Usuario creado.");    
+            
         },
         (error) => 
         {
-          this.showPopup("Error", this.parseErrors(error));
-          this.loading.dismiss();
+          this.loading = this.loadProvider.showError(this.loading, this.alertCtrl, this.parseErrors(error));
         }
       )
     }
-  }
-
-  showLoading() {
-    this.loading = this.loadingCtrl.create({
-      content: 'Please wait...',
-      dismissOnPageChange: true
-    });
-    this.loading.present();
   }
 
   parseErrors(response) {
@@ -87,24 +81,5 @@ export class RegisterPage {
     }
     var output = errors.join(", ").toString();
     return output
-}
-
-  showPopup(title, text) {
-    let alert = this.alertCtrl.create({
-      title: title,
-      subTitle: text,
-      buttons: [
-        {
-          text: 'OK',
-          handler: data => {
-            if (this.createSuccess) {
-              this.navCtrl.popToRoot();
-            }
-          }
-        }
-      ]
-    });
-    alert.present();
   }
-
 }

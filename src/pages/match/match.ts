@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Loading, AlertController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, Loading } from 'ionic-angular';
 import { MatchServiceProvider, AuthServiceProvider } from '../../providers/providers';
 import { Match, User } from '../../models/models';
 import { Storage } from '@ionic/storage';
+import { LoadingProvider } from '../../providers/loading/loading';
+import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
 
 @IonicPage()
 @Component({
@@ -20,30 +22,37 @@ export class MatchPage {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               public alertCtrl: AlertController,
-              public loadingCtrl: LoadingController,
               private matchService: MatchServiceProvider,
               private auth: AuthServiceProvider,
-              private storage: Storage) {
+              private storage: Storage,
+              private loadingCtrl: LoadingController,
+              private loadProvider: LoadingProvider) {
   }
 
   ionViewWillEnter() {
-    this.storage.get("currentMatch").then(
-      (matchInfo) => {
-        this.match = JSON.parse(matchInfo)
-        if (this.match == null) this.matchCallback();
-        else this.subscriptions = this.match.Players.length;
-      }
-    );
+    this.loading = this.loadProvider.showLoading(this.loading, this.loadingCtrl)
+    
     this.storage.get("userInfo").then(
       (userInfo) => {
-        this.user = JSON.parse(userInfo)
-        this.isAdmin = this.user.username == 'admin';
+        if(userInfo)
+        {      
+          this.user = JSON.parse(userInfo)
+          this.isAdmin = this.user.username == 'admin';
+        }
+
+        this.storage.get("currentMatch").then(
+          (matchInfo) => {
+            this.match = JSON.parse(matchInfo)
+            if (this.match == null) this.matchCallback();
+            else this.subscriptions = this.match.Players.length;
+            this.loading = this.loadProvider.dismissLoading(this.loading);
+          }
+        );
       }
     );   
   }  
 
   private matchCallback(){
-    this.showLoading();
     this.matchService.getCurrentMatch()
     .subscribe(
       (matchInfo) =>
@@ -62,40 +71,10 @@ export class MatchPage {
       },
       (err) =>
       {
-        this.showError('Error cargando partido');
+        this.loading = this.loadProvider.showError(this.loading, this.alertCtrl, 'Error cargando partido');
         console.log(err);
       }
     )
-  }
-
-  showLoading() {
-    this.loading = this.loadingCtrl.create({
-      content: 'Please wait...',
-      dismissOnPageChange: true
-    });
-    this.loading.present();
-  }
-
-  showSuccess(text) {
-    this.loading.dismiss();
- 
-    let alert = this.alertCtrl.create({
-      title: 'Success',
-      subTitle: text,
-      buttons: ['OK']
-    });
-    alert.present();
-  }
- 
-  showError(text) {
-    this.loading.dismiss();
- 
-    let alert = this.alertCtrl.create({
-      title: 'Fail',
-      subTitle: text,
-      buttons: ['OK']
-    });
-    alert.present();
   }
 
   kick(player, match){
