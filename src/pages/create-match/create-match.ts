@@ -39,6 +39,7 @@ export class CreateMatchPage {
         var accessToken = JSON.parse(resp).access_token;
         this.matchService.addMatch(this.match, accessToken).subscribe(
           () => {
+            this.storage.remove("currentMatch");
             this.loading = this.loadProvider.dismissLoading(this.loading);
             this.navCtrl.pop();
           },
