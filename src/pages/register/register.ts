@@ -54,7 +54,7 @@ export class RegisterPage {
                 console.log(err.message);
               }
             )
-            this.loading = this.loadProvider.showRegisterSuccess(this.loading, this.navCtrl, this.alertCtrl, "Usuario creado.");    
+            this.loading = this.loadProvider.showIdentitySuccess(this.loading, this.navCtrl, this.alertCtrl, "Usuario creado.");    
             
         },
         (error) => 

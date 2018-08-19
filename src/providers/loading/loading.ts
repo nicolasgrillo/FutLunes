@@ -34,7 +34,7 @@ export class LoadingProvider {
     return loading;
   }
 
-  showRegisterSuccess(loading : Loading, navCtrl : NavController, alertCtrl : AlertController, text : string) : Loading {
+  showIdentitySuccess(loading : Loading, navCtrl : NavController, alertCtrl : AlertController, text : string) : Loading {
     loading.dismiss();
  
     let alert = alertCtrl.create({

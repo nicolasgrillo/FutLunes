@@ -33,8 +33,7 @@ export class LoginPage {
       (resp) => 
         {
           this.storage.set('access_token', JSON.stringify(resp));
-          this.navCtrl.pop();
-          this.loading = this.loadProvider.showSuccess(this.loading, this.alertCtrl, "Sesión iniciada con éxito.")          
+          this.loading = this.loadProvider.showIdentitySuccess(this.loading, this.navCtrl, this.alertCtrl, "Sesión iniciada con éxito.")          
         },
       (err) => 
         {
