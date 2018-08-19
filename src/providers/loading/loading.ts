@@ -42,4 +42,8 @@ export class LoadingProvider {
     alert.present();
   }
 
+  dismissLoading(loading: Loading){
+    loading.dismiss();
+  }
+
 }
