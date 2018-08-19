@@ -37,6 +37,21 @@
                 </button>
               </ion-item>
             </ion-card>
+
+            <ion-row>
+              <ion-badge item-end *ngIf="hasSignedUp" color="secondary">Anotado</ion-badge>
+              <ion-badge item-end *ngIf="!hasSignedUp" color="danger">Sin anotar</ion-badge>
+            </ion-row>
+            <ion-row>
+              <button ion-button icon-start *ngIf="hasSignedUp" (click)="signUp()">
+                <ion-icon name="thumbs-down"></ion-icon>
+                Bajarse
+              </button>
+              <button ion-button icon-start *ngIf="!hasSignedUp" (click)="signUp()">
+                <ion-icon name="thumbs-up"></ion-icon>
+                Anotarse
+              </button>
+            </ion-row>
       </ion-col>
       <ion-col col-sm>
         <ion-list no-lines *ngIf="match">

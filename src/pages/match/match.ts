@@ -18,6 +18,7 @@ export class MatchPage {
   user: User;
   subscriptions: number;
   isAdmin: boolean;
+  hasSignedUp = false;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -45,12 +46,21 @@ export class MatchPage {
             this.match = JSON.parse(matchInfo)
             if (this.match == null) this.matchCallback();
             else this.subscriptions = this.match.Players.length;
+
+            this.checkIfUserHasSignedUp();
+            
             this.loading = this.loadProvider.dismissLoading(this.loading);
           }
         );
       }
     );   
   }  
+
+  private checkIfUserHasSignedUp(){
+    var result = this.match.Players.find(p => p.username == this.user.username)
+    if (result != null) this.hasSignedUp = true;
+    else this.hasSignedUp = false;
+  }
 
   private matchCallback(){
     this.matchService.getCurrentMatch()
@@ -75,6 +85,11 @@ export class MatchPage {
         console.log(err);
       }
     )
+  }
+
+  signUp() {
+    this.hasSignedUp = !this.hasSignedUp;
+    console.log("should signUp here");
   }
 
   kick(player, match){
