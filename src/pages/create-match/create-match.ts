@@ -15,7 +15,7 @@ import { Storage } from '@ionic/storage/dist/storage';
 export class CreateMatchPage {
 
   loading : Loading;
-  match = new CreateMatchModel();
+  match : CreateMatchModel;
 
   constructor(
     public navCtrl: NavController, 
@@ -25,7 +25,12 @@ export class CreateMatchPage {
     private loadProvider: LoadingProvider,
     private matchService: MatchServiceProvider,
     private storage : Storage
-  ) { }
+  ) {
+    this.match = new CreateMatchModel();
+    this.match.LocationTitle = "Solis Cano";
+    this.match.LocationMapUrl = "https://goo.gl/maps/VA4AGoHYEfB2"
+    this.match.PlayerLimit = 10;
+   }
 
   createMatch() {
     this.loading = this.loadProvider.showLoading(this.loading,this.loadingCtrl);

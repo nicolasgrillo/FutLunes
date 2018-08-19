@@ -19,20 +19,20 @@
         <ion-col>
           <ion-list inset>
             <ion-item>
-              <ion-label color="primary" stacked>Nombre de la cancha</ion-label>
+            <ion-label color="primary" clearInput>Nombre de la cancha</ion-label>
               <ion-input type="text" placeholder="Nombre de la cancha" name="LocationTitle" [(ngModel)]="match.LocationTitle" required></ion-input>
             </ion-item>
             <ion-item>
-              <ion-label color="primary" stacked>URL GoogleMap</ion-label>
+              <ion-label color="primary" clearInput="on">URL GoogleMap</ion-label>
               <ion-input type="text" placeholder="URL GoogleMap" name="MapUrl" [(ngModel)]="match.LocationMapUrl" required></ion-input>
             </ion-item>
             <ion-item>
-              <ion-label color="primary" stacked>Jugadores max</ion-label>
+              <ion-label color="primary" clearInput min="0" max="22">Jugadores max</ion-label>
               <ion-input type="number" placeholder="Jugadores max" name="playerLimit" [(ngModel)]="match.PlayerLimit" required></ion-input>
             </ion-item>
             <ion-item>
-              <ion-label color="primary" stacked>Fecha del partido</ion-label>
-              <ion-datetime displayFormat="DD/MM/YYYY" name="matchDate" [(ngModel)]="match.MatchDate" required></ion-datetime>
+              <ion-label color="primary" clearInput>Fecha del partido</ion-label>
+              <ion-datetime pickerFormat="DD/MM HH:mm" displayFormat="DD/MM HH:mm" name="matchDate" [(ngModel)]="match.MatchDate" required></ion-datetime>
             </ion-item>
           </ion-list>
         </ion-col>
