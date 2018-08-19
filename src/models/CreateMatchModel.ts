@@ -1,6 +1,6 @@
 export class CreateMatchModel {
-    Title : string;
-    MapUrl : string;
+    LocationTitle : string;
+    LocationMapUrl : string;
     MatchDate : Date;
-    Limit : number;
+    PlayerLimit : number;
 }
