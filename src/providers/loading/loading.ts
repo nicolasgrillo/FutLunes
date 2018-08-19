@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Loading, LoadingController } from 'ionic-angular';
+import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 
 @Injectable()
 export class LoadingProvider {
@@ -10,12 +11,35 @@ export class LoadingProvider {
   constructor(public loadingCtrl: LoadingController) 
   {}
 
-  showLoading() {
-    this.loading = this.loadingCtrl.create({
+  showLoading(loading : Loading, loadingCtrl : LoadingController) {
+    loading = loadingCtrl.create({
       content: 'Por favor, espere...',
       dismissOnPageChange: true
     });
-    this.loading.present();
+    loading.present();
+  }
+
+  //TODO: Probably switch alert to toast later on
+  showSuccess(loading : Loading, alertCtrl : AlertController, text : string) {
+    loading.dismiss();
+ 
+    let alert = alertCtrl.create({
+      title: 'Exito',
+      subTitle: text,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+ 
+  showError(loading : Loading, alertCtrl : AlertController, text : string) {
+    loading.dismiss();
+ 
+    let alert = alertCtrl.create({
+      title: 'Error',
+      subTitle: text,
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
 }
