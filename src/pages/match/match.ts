@@ -68,6 +68,7 @@ export class MatchPage {
       (matchInfo) =>
       {
         var tempMatch = new Match();
+        tempMatch.Id = matchInfo.id;
         tempMatch.MapUrl = matchInfo.locationMapUrl;
         tempMatch.Title = matchInfo.locationTitle;
         tempMatch.Limit = matchInfo.playerLimit;
