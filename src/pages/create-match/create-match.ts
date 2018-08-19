@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Loading } from 'ionic-angular';
+import { CreateMatchModel } from '../../models/CreateMatchModel';
+import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
+import { AlertController } from 'ionic-angular/components/alert/alert-controller';
+import { LoadingProvider } from '../../providers/loading/loading';
+import { MatchServiceProvider } from '../../providers/match-service/match-service';
+import { Storage } from '@ionic/storage/dist/storage';
 
 @IonicPage()
 @Component({
@@ -8,19 +14,36 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class CreateMatchPage {
 
-  match = {
-    locationTitle: '',
-    mapUrl: '',
-    playerLimit: 0,
-    matchDate: Date.now()
-  }
+  loading : Loading;
+  match = new CreateMatchModel();
 
   constructor(
     public navCtrl: NavController, 
-    public navParams: NavParams
+    public navParams: NavParams,
+    private loadingCtrl: LoadingController,
+    private alertCtrl: AlertController,
+    private loadProvider: LoadingProvider,
+    private matchService: MatchServiceProvider,
+    private storage : Storage
   ) { }
 
   createMatch() {
-    console.log("should create match here")
+    this.loading = this.loadProvider.showLoading(this.loading,this.loadingCtrl);
+    this.storage.get('access_token').then(
+      (resp) => {
+        var accessToken = JSON.parse(resp).access_token;
+        this.matchService.addMatch(this.match, accessToken).subscribe(
+          () => {
+            this.loading = this.loadProvider.dismissLoading(this.loading);
+            this.navCtrl.pop();
+          },
+          (err) => {
+            this.loading = this.loadProvider.showError(this.loading,this.alertCtrl,err);
+          }
+        )
+
+      }
+    )
+    
   }
 }
