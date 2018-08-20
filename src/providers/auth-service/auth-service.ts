@@ -5,6 +5,7 @@ import { Observable } from '../../../node_modules/rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { IToken } from '../../models/models';
 import { ChangePasswordModel } from '../../models/ChangePasswordModel';
+import { UpdateProfileModel } from '../../models/UpdateProfileModel';
 
 @Injectable()
 export class AuthServiceProvider {
@@ -41,6 +42,20 @@ export class AuthServiceProvider {
           'Content-Type':'application/json',
           'Authorization':'Bearer ' + accessToken
         }
+      }
+    )
+  }
+
+  public updateProfile(username : string, credentials : UpdateProfileModel, accessToken : string): Observable<any>{
+    return this.http.put(
+      this.baseApiUrl + "api/account/update",
+      credentials,
+      {
+        headers: 
+          {
+            'Content-type':'application/json',
+            'Authorization':'Bearer ' + accessToken
+          }
       }
     )
   }
