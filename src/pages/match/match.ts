@@ -90,6 +90,11 @@ export class MatchPage {
     )
   }
 
+  openMap(){
+    window.open(this.match.MapUrl, '_system', 'location=yes'); 
+    return false;
+  }
+
   dismiss() {
     var subscription = new SignUpModel();
     subscription.MatchId = this.match.Id;
