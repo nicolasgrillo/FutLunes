@@ -4,6 +4,7 @@ import { PlayerServiceProvider, LoadingProvider } from '../../providers/provider
 import { Storage } from '@ionic/storage';
 import { User, IToken } from '../../models/models';
 import { ChangePasswordPage } from '../change-password/change-password';
+import { UpdateProfilePage } from '../update-profile/update-profile';
 
 @IonicPage()
 @Component({
@@ -31,8 +32,7 @@ export class ProfilePage {
               private storage: Storage,
               private loadProvider: LoadingProvider){
                 this.changePasswordPage = ChangePasswordPage;
-                //TODO: Addd update profile page
-                this.updateProfilePage = null;              
+                this.updateProfilePage = UpdateProfilePage;              
   }
 
   ionViewWillEnter() {
