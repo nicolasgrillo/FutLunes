@@ -7,3 +7,4 @@ export { RegisterPage } from './register/register';
 export { CreateMatchPage } from './create-match/create-match';
 export { EditMatchPage } from './edit-match/edit-match';
 export { ChangePasswordPage } from './change-password/change-password';
+export { UpdateProfilePage } from './update-profile/update-profile';
