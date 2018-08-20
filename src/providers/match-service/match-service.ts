@@ -4,6 +4,7 @@ import { environment as ENV } from '../../environments/environment';
 import { Observable } from '../../../node_modules/rxjs/Observable';
 import { CreateMatchModel } from '../../models/CreateMatchModel';
 import { SignUpModel } from '../../models/SignUpModel';
+import { Match } from '../../models/models';
 
 @Injectable()
 export class MatchServiceProvider {
@@ -65,6 +66,19 @@ export class MatchServiceProvider {
         headers: {
           'Content-Type':'application/json',
           'Authorization':'Bearer ' + token
+        }
+      }
+    )
+  }
+
+  public confirmMatch(match : Match, accessToken: string) : Observable<any> {
+    return this.http.post(
+      this.baseApiUrl + "api/matches/" + match['id'] + "/confirm",
+      "",
+      {
+        headers: {
+          'Content-Type':'application/json',
+          'Authorization':'Bearer ' + accessToken
         }
       }
     )
