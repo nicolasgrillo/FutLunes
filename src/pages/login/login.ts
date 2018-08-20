@@ -37,7 +37,7 @@ export class LoginPage {
         },
       (err) => 
         {
-          this.loading = this.loadProvider.showError(this.loading, this.alertCtrl, "Sin acceso");
+          this.loading = this.loadProvider.showError(this.loading, this.alertCtrl, "Usuario/Contraseña incorrecto");
           console.log(err);
         }
     )    
