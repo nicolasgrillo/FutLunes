@@ -5,6 +5,7 @@ import { Match, User } from '../../models/models';
 import { Storage } from '@ionic/storage';
 import { LoadingProvider } from '../../providers/loading/loading';
 import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
+import { SignUpModel } from '../../models/SignUpModel';
 
 @IonicPage()
 @Component({
@@ -57,9 +58,16 @@ export class MatchPage {
   }  
 
   private checkIfUserHasSignedUp(){
-    var result = this.match.Players.find(p => p.username == this.user.username)
-    if (result != null) this.hasSignedUp = true;
-    else this.hasSignedUp = false;
+    if (this.match != null){
+      var result = this.match.Players.find(p => p.username == this.user.username)
+      if (result != null) this.hasSignedUp = true;
+      else this.hasSignedUp = false;
+    }
+    else 
+    {
+      this.hasSignedUp = false;
+      return false
+    }
   }
 
   private matchCallback(){
@@ -89,8 +97,29 @@ export class MatchPage {
   }
 
   signUp() {
-    this.hasSignedUp = !this.hasSignedUp;
-    console.log("should signUp here");
+    var subscription = new SignUpModel();
+    subscription.DateTime = new Date();
+    subscription.MatchId = this.match.Id;
+    subscription.UserName = this.user.username;
+
+    console.log(subscription);
+    this.loading = this.loadProvider.showLoading(this.loading, this.loadingCtrl);
+    this.storage.get('access_token').then(
+      (resp) => {
+        var accessToken = JSON.parse(resp).access_token;
+        this.matchService.signUp(subscription, accessToken)
+        .subscribe(
+          () => {
+            this.storage.remove('currentMatch')
+            this.loading = this.loadProvider.showSuccess(this.loading, this.alertCtrl, "Anotado con éxito");
+          },
+          (err) => {
+            this.loading = this.loadProvider.showError(this.loading, this.alertCtrl, 'Error en la inscripción');
+            console.log(err);
+          }
+        )
+      });
+
   }
 
   kick(player, match){
