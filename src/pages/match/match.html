@@ -37,7 +37,7 @@
                 </button>
               </ion-item>
             </ion-card>
-
+          <div *ngIf="user">
             <ion-row>
               <ion-badge item-end *ngIf="hasSignedUp" color="secondary">Anotado</ion-badge>
               <ion-badge item-end *ngIf="!hasSignedUp" color="danger">Sin anotar</ion-badge>
@@ -52,6 +52,7 @@
                 Anotarse
               </button>
             </ion-row>
+          </div>
       </ion-col>
       <ion-col col-sm>
         <ion-list no-lines *ngIf="match">

@@ -50,9 +50,6 @@ export class MatchPage {
               this.subscriptions = this.match.Players.length;
               this.checkIfUserHasSignedUp();
             }
-
-            
-            
             this.loading = this.loadProvider.dismissLoading(this.loading);
           }
         );
@@ -61,7 +58,7 @@ export class MatchPage {
   }  
 
   private checkIfUserHasSignedUp(){
-      var result = this.match.Players.find(p => p.user == this.user.username)
+      var result = this.match.Players.find(p => p["user"] == this.user.username)
       if (result != null) this.hasSignedUp = true;
       else this.hasSignedUp = false;
   }
@@ -98,7 +95,7 @@ export class MatchPage {
     subscription.MatchId = this.match.Id;
     subscription.UserName = this.user.username;
     // TODO : Not required, probably shouldn't send Sub Date along. Confirm, low priority. 
-    subscription.DateTime = this.match.Players.find(p => p.user == this.user.username).subscriptionDate
+    subscription.DateTime = this.match.Players.find(p => p["user"] == this.user.username).subscriptionDate
 
     this.loading = this.loadProvider.showLoading(this.loading, this.loadingCtrl);
     this.storage.get('access_token').then(
