@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment as ENV } from '../../environments/environment';
 import { Observable } from '../../../node_modules/rxjs/Observable';
 import { CreateMatchModel } from '../../models/CreateMatchModel';
+import { SignUpModel } from '../../models/SignUpModel';
 
 @Injectable()
 export class MatchServiceProvider {
@@ -28,6 +29,19 @@ export class MatchServiceProvider {
         }
       }
     ) 
+  }
+
+  public signUp(subscription : SignUpModel, token : string): Observable<any> {
+    return this.http.post(
+      this.baseApiUrl + "api/matches/signup",
+      JSON.stringify(subscription),
+      {
+        headers: {
+          'Content-Type':'application/json',
+          'Authorization':'Bearer ' + token
+        }
+      }
+    )
   }
 
 }
