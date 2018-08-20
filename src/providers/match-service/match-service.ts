@@ -31,6 +31,19 @@ export class MatchServiceProvider {
     ) 
   }
 
+  public updateMatch(id: number, cmm : CreateMatchModel, token : string) : Observable<any> {
+    return this.http.put(
+      this.baseApiUrl + "api/matches/" + id,
+      JSON.stringify(cmm),
+      {
+        headers: {
+          'Content-Type':'application/json',
+          'Authorization':'Bearer ' + token
+        }
+      }
+    ) 
+  }
+
   public signUp(subscription : SignUpModel, token : string): Observable<any> {
     return this.http.post(
       this.baseApiUrl + "api/matches/signup",
