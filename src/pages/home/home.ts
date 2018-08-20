@@ -24,8 +24,7 @@ export class HomePage {
   matchPage: any;
   loginPage: any;
   adminPage: any;
-  createMatchPage: any;
-  editMatchPage: any;
+  
 
   loading: Loading;
 
@@ -41,8 +40,7 @@ export class HomePage {
                 this.matchPage = MatchPage;
                 this.loginPage = LoginPage;
                 this.adminPage = AdminPage;
-                this.createMatchPage = CreateMatchPage;
-                this.editMatchPage = EditMatchPage;
+                
               }
 
 

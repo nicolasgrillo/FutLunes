@@ -1,9 +1,3 @@
-<!--
-  Generated template for the AdminPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
@@ -14,5 +8,18 @@
 
 
 <ion-content>
-  <p>Admin options here</p>
+  <ion-list>
+      <ion-item>
+          <button ion-button icon-start [navPush]="createMatchPage">
+            <ion-icon name="cloud-upload"></ion-icon>
+            <h2>Crear nuevo partido</h2>
+          </button>
+        </ion-item>
+        <ion-item>
+          <button ion-button icon-start [navPush]="editMatchPage">
+            <ion-icon name="color-palette"></ion-icon>
+            <h2>Editar partido actual</h2>
+          </button>
+        </ion-item>
+  </ion-list>
 </ion-content>
