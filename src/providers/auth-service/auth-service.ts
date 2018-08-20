@@ -4,6 +4,7 @@ import { environment as ENV } from '../../environments/environment';
 import { Observable } from '../../../node_modules/rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { IToken } from '../../models/models';
+import { ChangePasswordModel } from '../../models/ChangePasswordModel';
 
 @Injectable()
 export class AuthServiceProvider {
@@ -29,6 +30,19 @@ export class AuthServiceProvider {
     ).map((resp) =>{
       return resp as IToken;
     })
+  }
+
+  public changePassword(credentials : ChangePasswordModel, accessToken: string) : Observable<any>{
+    return this.http.post(
+      this.baseApiUrl + "api/account/changepassword",
+      JSON.stringify(credentials),
+      {
+        headers: {
+          'Content-Type':'application/json',
+          'Authorization':'Bearer ' + accessToken
+        }
+      }
+    )
   }
 
   // Register

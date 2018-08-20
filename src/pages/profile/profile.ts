@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, AlertController, LoadingController
 import { PlayerServiceProvider, LoadingProvider } from '../../providers/providers';
 import { Storage } from '@ionic/storage';
 import { User, IToken } from '../../models/models';
+import { ChangePasswordPage } from '../change-password/change-password';
 
 @IonicPage()
 @Component({
@@ -13,6 +14,8 @@ export class ProfilePage {
   loading: Loading;
   userInfo : User;
   accessToken : IToken;
+  changePasswordPage : any;
+  updateProfilePage : any;
 
   @ViewChild('username') username: string;
   @ViewChild('firstName') firstName: string;
@@ -26,7 +29,10 @@ export class ProfilePage {
               public loadingCtrl: LoadingController,
               private playerService: PlayerServiceProvider,
               private storage: Storage,
-              private loadProvider: LoadingProvider) {
+              private loadProvider: LoadingProvider){
+                this.changePasswordPage = ChangePasswordPage;
+                //TODO: Addd update profile page
+                this.updateProfilePage = null;              
   }
 
   ionViewWillEnter() {
@@ -84,10 +90,5 @@ export class ProfilePage {
       )
     }
     
-  }
-
-  update(){
-    console.log("Update clicked");
-    // Update profile here
   }
 }

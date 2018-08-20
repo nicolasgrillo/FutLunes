@@ -4,12 +4,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { FutLunesApp } from './app.component';
-import { HomePage, LoginPage, AdminPage, ProfilePage, MatchPage, RegisterPage, CreateMatchPage} from '../pages/pages';
+import { HomePage, LoginPage, AdminPage, ProfilePage, MatchPage, RegisterPage, CreateMatchPage, ChangePasswordPage} from '../pages/pages';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthServiceProvider, PlayerServiceProvider, MatchServiceProvider, LoadingProvider } from '../providers/providers';
-import { LoginPageModule, HomePageModule, AdminPageModule, ProfilePageModule, MatchPageModule, RegisterPageModule, CreateMatchPageModule } from '../pages/modules';
+import { LoginPageModule, HomePageModule, AdminPageModule, ProfilePageModule, MatchPageModule, RegisterPageModule, CreateMatchPageModule, ChangePasswordPageModule } from '../pages/modules';
 import { EditMatchPageModule } from '../pages/edit-match/edit-match.module';
 import { EditMatchPage } from '../pages/edit-match/edit-match';
 
@@ -29,7 +29,8 @@ import { EditMatchPage } from '../pages/edit-match/edit-match';
     MatchPageModule,
     RegisterPageModule,
     CreateMatchPageModule,
-    EditMatchPageModule
+    EditMatchPageModule,
+    ChangePasswordPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -41,7 +42,8 @@ import { EditMatchPage } from '../pages/edit-match/edit-match';
     MatchPage,
     RegisterPage,
     CreateMatchPage,
-    EditMatchPage
+    EditMatchPage,
+    ChangePasswordPage
   ],
   providers: [
     StatusBar,

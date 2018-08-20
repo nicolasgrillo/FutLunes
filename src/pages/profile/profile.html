@@ -32,12 +32,18 @@
               <div>{{appearances}}</div>
             </button>
           </ion-col>
-          <ion-col center text-center>
-            <button ion-button icon-start clear small>
+          <ion-col>
+            <button ion-button icon-start clear small [navPush]="updateProfilePage">
               <ion-icon name="share-alt"></ion-icon>
               <div>Actualizar</div>
             </button>
           </ion-col>
+          <ion-col>
+              <button ion-button icon-start clear small [navPush]="changePasswordPage">
+                <ion-icon name="share-alt"></ion-icon>
+                <div>Cambiar contraseña</div>
+              </button>
+            </ion-col>
         </ion-row>
       
       </ion-card>
