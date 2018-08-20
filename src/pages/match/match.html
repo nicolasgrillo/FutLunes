@@ -43,7 +43,7 @@
               <ion-badge item-end *ngIf="!hasSignedUp" color="danger">Sin anotar</ion-badge>
             </ion-row>
             <ion-row>
-              <button ion-button icon-start *ngIf="hasSignedUp" (click)="signUp()">
+              <button ion-button icon-start *ngIf="hasSignedUp" (click)="dismiss()">
                 <ion-icon name="thumbs-down"></ion-icon>
                 Bajarse
               </button>

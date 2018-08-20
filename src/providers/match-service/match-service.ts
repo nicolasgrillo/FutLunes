@@ -44,4 +44,17 @@ export class MatchServiceProvider {
     )
   }
 
+  public dismiss(subscription : SignUpModel, token : string): Observable<any> {
+    return this.http.post(
+      this.baseApiUrl + "api/matches/dismiss",
+      JSON.stringify(subscription),
+      {
+        headers: {
+          'Content-Type':'application/json',
+          'Authorization':'Bearer ' + token
+        }
+      }
+    )
+  }
+
 }

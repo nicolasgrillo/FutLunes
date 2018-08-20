@@ -46,9 +46,12 @@ export class MatchPage {
           (matchInfo) => {
             this.match = JSON.parse(matchInfo)
             if (this.match == null) this.matchCallback();
-            else this.subscriptions = this.match.Players.length;
+            else {
+              this.subscriptions = this.match.Players.length;
+              this.checkIfUserHasSignedUp();
+            }
 
-            this.checkIfUserHasSignedUp();
+            
             
             this.loading = this.loadProvider.dismissLoading(this.loading);
           }
@@ -58,16 +61,9 @@ export class MatchPage {
   }  
 
   private checkIfUserHasSignedUp(){
-    if (this.match != null){
-      var result = this.match.Players.find(p => p.username == this.user.username)
+      var result = this.match.Players.find(p => p.user == this.user.username)
       if (result != null) this.hasSignedUp = true;
       else this.hasSignedUp = false;
-    }
-    else 
-    {
-      this.hasSignedUp = false;
-      return false
-    }
   }
 
   private matchCallback(){
@@ -87,6 +83,7 @@ export class MatchPage {
 
         this.storage.set("currentMatch", JSON.stringify(this.match));
         this.subscriptions = this.match.Players.length;
+        if (this.user != null) this.checkIfUserHasSignedUp();
       },
       (err) =>
       {
@@ -96,13 +93,38 @@ export class MatchPage {
     )
   }
 
+  dismiss() {
+    var subscription = new SignUpModel();
+    subscription.MatchId = this.match.Id;
+    subscription.UserName = this.user.username;
+    // TODO : Not required, probably shouldn't send Sub Date along. Confirm, low priority. 
+    subscription.DateTime = this.match.Players.find(p => p.user == this.user.username).subscriptionDate
+
+    this.loading = this.loadProvider.showLoading(this.loading, this.loadingCtrl);
+    this.storage.get('access_token').then(
+      (resp) => {
+        var accessToken = JSON.parse(resp).access_token;
+        this.matchService.dismiss(subscription, accessToken)
+        .subscribe(
+          () => {
+            this.storage.remove('currentMatch')
+            this.loading = this.loadProvider.showSuccess(this.loading, this.alertCtrl, "Dado de baja con éxito");
+            this.matchCallback();
+          },
+          (err) => {
+            this.loading = this.loadProvider.showError(this.loading, this.alertCtrl, 'Error en la baja');
+            console.log(err);
+          }
+        )
+      });
+  }
+
   signUp() {
     var subscription = new SignUpModel();
     subscription.DateTime = new Date();
     subscription.MatchId = this.match.Id;
     subscription.UserName = this.user.username;
 
-    console.log(subscription);
     this.loading = this.loadProvider.showLoading(this.loading, this.loadingCtrl);
     this.storage.get('access_token').then(
       (resp) => {
@@ -112,6 +134,7 @@ export class MatchPage {
           () => {
             this.storage.remove('currentMatch')
             this.loading = this.loadProvider.showSuccess(this.loading, this.alertCtrl, "Anotado con éxito");
+            this.matchCallback();
           },
           (err) => {
             this.loading = this.loadProvider.showError(this.loading, this.alertCtrl, 'Error en la inscripción');
