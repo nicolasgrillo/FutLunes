@@ -10,6 +10,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthServiceProvider, PlayerServiceProvider, MatchServiceProvider, LoadingProvider } from '../providers/providers';
 import { LoginPageModule, HomePageModule, AdminPageModule, ProfilePageModule, MatchPageModule, RegisterPageModule, CreateMatchPageModule } from '../pages/modules';
+import { EditMatchPageModule } from '../pages/edit-match/edit-match.module';
+import { EditMatchPage } from '../pages/edit-match/edit-match';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { LoginPageModule, HomePageModule, AdminPageModule, ProfilePageModule, Ma
     ProfilePageModule,
     MatchPageModule,
     RegisterPageModule,
-    CreateMatchPageModule
+    CreateMatchPageModule,
+    EditMatchPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -37,7 +40,8 @@ import { LoginPageModule, HomePageModule, AdminPageModule, ProfilePageModule, Ma
     ProfilePage,
     MatchPage,
     RegisterPage,
-    CreateMatchPage
+    CreateMatchPage,
+    EditMatchPage
   ],
   providers: [
     StatusBar,

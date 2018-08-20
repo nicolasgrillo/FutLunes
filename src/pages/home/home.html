@@ -34,12 +34,21 @@
         <h2>Ir al partido</h2>
       </button>
     </ion-item>
-    <ion-item>
-      <button ion-button icon-start [navPush]="createMatchPage" *ngIf="isAdmin">
-        <ion-icon name="cloud-upload"></ion-icon>
-        <h2>Crear nuevo partido</h2>
-      </button>
-    </ion-item>
+    <div *ngIf="isAdmin">
+      <ion-item>
+        <button ion-button icon-start [navPush]="createMatchPage">
+          <ion-icon name="cloud-upload"></ion-icon>
+          <h2>Crear nuevo partido</h2>
+        </button>
+      </ion-item>
+      <ion-item>
+        <button ion-button icon-start [navPush]="editMatchPage">
+          <ion-icon name="color-palette"></ion-icon>
+          <h2>Editar partido actual</h2>
+        </button>
+      </ion-item>
+    </div>
+    
   </ion-list>  
 
   

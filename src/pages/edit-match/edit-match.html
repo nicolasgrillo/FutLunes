@@ -8,6 +8,7 @@
 
 
 <ion-content padding>
+  <div *ngIf = "match">
   <form (ngSubmit)="confirm()" #addMatchForm="ngForm">
     <ion-row>
       <ion-col>
@@ -38,4 +39,5 @@
           </ion-col>
     </ion-row>
   </form>
+  </div>
 </ion-content>
