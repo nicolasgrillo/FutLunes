@@ -32,8 +32,8 @@ export class MatchServiceProvider {
   }
 
   public updateMatch(id: number, cmm : CreateMatchModel, token : string) : Observable<any> {
-    return this.http.put(
-      this.baseApiUrl + "api/matches/" + id,
+    return this.http.post(
+      this.baseApiUrl + "api/matches/update/" + id,
       JSON.stringify(cmm),
       {
         headers: {
