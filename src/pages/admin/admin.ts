@@ -121,7 +121,7 @@ export class AdminPage {
     this.loading = this.loadProvider.showLoading(this.loading,this.loadingCtrl);
     this.matchService.deconfirmMatch(this.match, this.token).subscribe(
       () => {
-        this.storage.remove("currentMatch");
+        this.storage.remove("currentAdminMatch");
         this.loading = this.loadProvider.dismissLoading(this.loading);
         this.navCtrl.pop();
       },
@@ -135,7 +135,7 @@ export class AdminPage {
     this.loading = this.loadProvider.showLoading(this.loading,this.loadingCtrl);
       this.matchService.confirmMatch(this.match, this.token).subscribe(
         () => {
-          this.storage.remove("currentMatch");
+          this.storage.remove("currentAdminMatch");
           this.loading = this.loadProvider.dismissLoading(this.loading);
           this.navCtrl.pop();
         },
