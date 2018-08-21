@@ -47,7 +47,7 @@ export class AuthServiceProvider {
   }
 
   public updateProfile(username : string, credentials : UpdateProfileModel, accessToken : string): Observable<any>{
-    return this.http.put(
+    return this.http.post(
       this.baseApiUrl + "api/account/update",
       credentials,
       {

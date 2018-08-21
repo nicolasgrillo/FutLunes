@@ -34,6 +34,7 @@ export class UpdateProfilePage {
     this.storage.get('userInfo').then(
       (info) => {
         this.user = JSON.parse(info);
+        this.profile.username = this.user.username;
         this.profile.email = this.user.email;
         this.profile.firstName = this.user.firstName;
         this.profile.lastName = this.user.lastName;
