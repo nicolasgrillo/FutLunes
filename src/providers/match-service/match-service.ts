@@ -84,4 +84,17 @@ export class MatchServiceProvider {
     )
   }
 
+  public deconfirmMatch(match : Match, accessToken: string) : Observable<any> {
+    return this.http.post(
+      this.baseApiUrl + "api/matches/" + match['id'] + "/deconfirm",
+      "",
+      {
+        headers: {
+          'Content-Type':'application/json',
+          'Authorization':'Bearer ' + accessToken
+        }
+      }
+    )
+  }
+
 }

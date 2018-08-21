@@ -21,10 +21,14 @@
             <h2>Editar partido actual</h2>
           </button>
         </ion-item>
-        <ion-item>
-          <button ion-button icon-start (click)="confirmMatch()">
+        <ion-item *ngIf="match">
+          <button ion-button icon-start *ngIf="match.Open" (click)="confirmMatch()">
             <ion-icon name="done-all"></ion-icon>
             <h2>Confirmar partido actual</h2>
+          </button>
+          <button ion-button icon-start *ngIf="!match.Open" (click)="deconfirmMatch()">
+            <ion-icon name="undo"></ion-icon>
+            <h2>Abrir partido actual</h2>
           </button>
         </ion-item>
   </ion-list>

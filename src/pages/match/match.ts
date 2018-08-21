@@ -44,13 +44,26 @@ export class MatchPage {
 
         this.storage.get("currentMatch").then(
           (matchInfo) => {
-            this.match = JSON.parse(matchInfo)
-            if (this.match == null) this.matchCallback();
-            else {
-              this.subscriptions = this.match.Players.length;
-              this.checkIfUserHasSignedUp();
+            if (matchInfo == null) this.matchCallback();
+            else{
+              var tempMatchInfo = JSON.parse(matchInfo)
+              var tempMatch = new Match();
+              tempMatch.Id = tempMatchInfo.Id;
+              tempMatch.MapUrl = tempMatchInfo.MapUrl;
+              tempMatch.Title = tempMatchInfo.Title;
+              tempMatch.Limit = tempMatchInfo.Limit;
+              tempMatch.MatchDate = tempMatchInfo.MatchDate;
+              tempMatch.Open = tempMatchInfo.Open;
+              tempMatch.Players = tempMatchInfo.Players;
+      
+              this.match = tempMatch;
+              if (this.match == null) this.matchCallback();
+              else {
+                this.subscriptions = this.match.Players.length;
+                if (this.user != null) this.checkIfUserHasSignedUp();
+              }
+              this.loading = this.loadProvider.dismissLoading(this.loading);
             }
-            this.loading = this.loadProvider.dismissLoading(this.loading);
           }
         );
       }
@@ -58,9 +71,10 @@ export class MatchPage {
   }  
 
   private checkIfUserHasSignedUp(){
-      var result = this.match.Players.find(p => p["user"] == this.user.username)
-      if (result != null) this.hasSignedUp = true;
-      else this.hasSignedUp = false;
+    if (this.user == null) return false;
+    var result = this.match.Players.find(p => p["user"] == this.user.username)
+    if (result != null) this.hasSignedUp = true;
+    else this.hasSignedUp = false;
   }
 
   private matchCallback(){
@@ -74,12 +88,13 @@ export class MatchPage {
         tempMatch.Title = matchInfo.locationTitle;
         tempMatch.Limit = matchInfo.playerLimit;
         tempMatch.MatchDate = matchInfo.matchDate;
+        tempMatch.Open = matchInfo.open;
         tempMatch.Players = matchInfo.players;
 
         this.match = tempMatch;
 
         this.storage.set("currentMatch", JSON.stringify(this.match));
-        this.subscriptions = this.match.Players.length;
+        this.subscriptions = this.match.Players.length
         if (this.user != null) this.checkIfUserHasSignedUp();
       },
       (err) =>

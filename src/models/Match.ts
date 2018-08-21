@@ -6,5 +6,6 @@ export class Match {
     MapUrl : string;
     MatchDate : Date;
     Limit : number;
+    Open : boolean;
     Players : User[];
 }

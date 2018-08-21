@@ -39,14 +39,23 @@ export class AdminPage {
   ionViewDidLoad(){
     this.loading = this.loadProvider.showLoading(this.loading,this.loadingCtrl);
 
-    this.storage.get('currentMatch').then(
+    this.storage.get("currentAdminMatch").then(
       (currentMatch) => {
         
         if (currentMatch == null){
           this.matchService.getCurrentMatch().subscribe(
-            (resp) => {
-              this.match = resp;
-              this.storage.set('currentMatch', JSON.stringify(resp));
+            (matchInfo) => {
+              var tempMatch = new Match();
+              tempMatch.Id = matchInfo.id;
+              tempMatch.MapUrl = matchInfo.locationMapUrl;
+              tempMatch.Title = matchInfo.locationTitle;
+              tempMatch.Limit = matchInfo.playerLimit;
+              tempMatch.MatchDate = matchInfo.matchDate;
+              tempMatch.Open = matchInfo.open;
+              tempMatch.Players = matchInfo.players;
+
+              this.match = tempMatch;
+              this.storage.set("currentAdminMatch", JSON.stringify(this.match));
             } 
           );
         }
@@ -84,6 +93,42 @@ export class AdminPage {
       ]
     });
     alert.present();
+  }
+
+  deconfirmMatch(){
+    let alert = this.alertCtrl.create({
+      title: 'Confirmar partido',
+      message: 'Esta seguro que desea abrir el partido? Se abrirán las inscripciones y restablecerán puntajes.',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {            
+          }
+        },
+        {
+          text: 'Confirmar',
+          handler: () => {
+            this.deconfirmMatchCallback();
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  deconfirmMatchCallback(){
+    this.loading = this.loadProvider.showLoading(this.loading,this.loadingCtrl);
+    this.matchService.deconfirmMatch(this.match, this.token).subscribe(
+      () => {
+        this.storage.remove("currentMatch");
+        this.loading = this.loadProvider.dismissLoading(this.loading);
+        this.navCtrl.pop();
+      },
+      (err) => {
+        this.loading = this.loadProvider.showError(this.loading,this.alertCtrl,err.statusText);
+      }
+    ); 
   }
 
   confirmMatchCallback(){
