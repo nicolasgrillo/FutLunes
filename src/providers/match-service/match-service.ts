@@ -73,7 +73,7 @@ export class MatchServiceProvider {
 
   public confirmMatch(match : Match, accessToken: string) : Observable<any> {
     return this.http.post(
-      this.baseApiUrl + "api/matches/" + match['id'] + "/confirm",
+      this.baseApiUrl + "api/matches/" + match['Id'] + "/confirm",
       "",
       {
         headers: {
@@ -86,7 +86,7 @@ export class MatchServiceProvider {
 
   public deconfirmMatch(match : Match, accessToken: string) : Observable<any> {
     return this.http.post(
-      this.baseApiUrl + "api/matches/" + match['id'] + "/deconfirm",
+      this.baseApiUrl + "api/matches/" + match['Id'] + "/deconfirm",
       "",
       {
         headers: {
