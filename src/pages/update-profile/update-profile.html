@@ -14,18 +14,22 @@
           <ion-list inset *ngIf="user">
   
             <ion-item>
+              <ion-label color="primary" floating>Usuario</ion-label>
               <ion-input type="text" placeholder="Usuario" name="Username" [(ngModel)]="user.username" readonly required></ion-input>
             </ion-item>
   
             <ion-item>
+              <ion-label color="primary" floating>Email</ion-label>
               <ion-input type="text" placeholder="Email" name="email" [(ngModel)]="profile.email" required></ion-input>
             </ion-item>
   
             <ion-item>
+              <ion-label color="primary" floating>Nombre</ion-label>
               <ion-input type="text" placeholder="Nombre" name="nombre" [(ngModel)]="profile.firstName"></ion-input>
             </ion-item>
   
             <ion-item>
+              <ion-label color="primary" floating>Apellido</ion-label>
               <ion-input type="text" placeholder="Apellido" name="apellido" [(ngModel)]="profile.lastName"></ion-input>
             </ion-item>
 
