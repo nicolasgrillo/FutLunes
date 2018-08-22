@@ -1,9 +1,3 @@
-<!--
-  Generated template for the MatchPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
@@ -12,8 +6,15 @@
 
 </ion-header>
 
-
 <ion-content padding>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+        pullingIcon="arrow-dropdown"
+        pullingText="Tire para refrescar"
+        refreshingSpinner="circles"
+        refreshingText="Refrescando...">
+    </ion-refresher-content>
+    </ion-refresher>
   <ion-grid>
     <ion-row>
       <ion-col col-sm>
@@ -82,7 +83,6 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  
 
-  
 </ion-content>
+

@@ -70,6 +70,12 @@ export class MatchPage {
     );   
   }  
 
+  private doRefresh(ev){
+    this.storage.remove('currentMatch');
+    this.matchCallback();
+    ev.complete();
+  }
+
   private checkIfUserHasSignedUp(){
     if (this.user == null) return false;
     var result = this.match.Players.find(p => p["user"] == this.user.username)
