@@ -23,7 +23,7 @@
               <ion-item>
                 <ion-icon name="pin" item-start large></ion-icon>
                 <h2>{{match.Title}}</h2>
-                <p>{{match.MatchDate}}</p>
+                <p>{{match.MatchDate | date:'short'}}</p>
               </ion-item>
               <ion-item>
                 <ion-icon name="people" item-start large ></ion-icon>
@@ -70,7 +70,7 @@
                 <img src="../../assets/imgs/GenericAvatar.png">
               </ion-avatar>
                 <h2>{{player.user}}</h2>
-                <p>{{player.subscriptionDate}}</p>
+                <p>{{player.subscriptionDate | date:'short'}}</p>
                 <!-- <ion-col>
                   <button *ngIf="isAdmin" (click)="kick(player, match)" ion-button icon-start clear small>
                     <ion-icon name="close"></ion-icon>
