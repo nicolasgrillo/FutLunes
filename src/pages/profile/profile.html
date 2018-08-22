@@ -10,7 +10,6 @@
 <ion-content padding>
 
     <ion-card>
-
         <ion-item>
           <ion-avatar item-start>
             <img src="../../assets/imgs/GenericAvatar.png">
@@ -18,20 +17,22 @@
           <h2> @ {{username}} </h2>
           <p> {{firstName}} {{lastName}} </p>
         </ion-item>
-    </ion-card>  
         <ion-row>
-          <ion-col>
-            <button ion-button icon-start clear small>
-              <ion-icon name="mail"></ion-icon>
-              <div>{{email}}</div>
-            </button>
-          </ion-col>
-          <ion-col>
-            <button ion-button icon-start clear small>
-              <ion-icon name="hand"></ion-icon>
-              <div>{{appearances}}</div>
-            </button>
-          </ion-col>
+            <ion-col>
+                <button ion-button icon-start clear small>
+                  <ion-icon name="mail"></ion-icon>
+                  <div>{{email}}</div>
+                </button>
+              </ion-col>
+              <ion-col>
+                <button ion-button icon-start clear small>
+                  <ion-icon name="hand"></ion-icon>
+                  <div>{{appearances}}</div>
+                </button>
+              </ion-col>
+        </ion-row>
+    </ion-card>  
+        <ion-row>          
           <ion-col>
             <button ion-button icon-start clear small [navPush]="updateProfilePage">
               <ion-icon name="share-alt"></ion-icon>
@@ -45,82 +46,4 @@
               </button>
             </ion-col>
         </ion-row>
-      
-      
-
-  <!-- <ion-grid style="height: 100%">
-      <ion-row justify-content-center align-items-center style="height: 100%">
-        <ion-card style="max-width: 25%">
-          <ion-row>
-            <ion-avatar>
-              <img  src="../../assets/imgs/GenericAvatar.png">
-            </ion-avatar>
-          </ion-row>
-          <ion-row justify-content-center align-items-center>
-            <ion-badge><h2>@{{username}}</h2></ion-badge>
-          </ion-row>
-          <ion-row justify-content-center align-items-center>
-            <p>{{firstName}} {{lastName}}</p>
-          </ion-row>
-          <ion-row justify-content-center align-items-center>
-            <button ion-button icon-only>
-              <ion-icon name="mail"></ion-icon> <ion-label>{{email}}</ion-label>
-            </button>
-          </ion-row>   
-          <ion-row justify-content-center align-items-center>
-            <ion-badge item-end>{{appearances}} partidos jugados</ion-badge>
-          </ion-row>
-          <ion-row>
-            <button ion-button>
-              <ion-badge>Actualizar</ion-badge>
-            </button>
-            <button ion-button>
-                <ion-badge>Cambiar contraseña</ion-badge>
-            </button>
-            </ion-row>
-        </ion-card>
-      </ion-row>
-      
-  </ion-grid> -->
-
-  
-
-      <!-- <form (ngSubmit)="update()" #profileForm="ngForm">
-
-          <ion-row>
-            <ion-col>
-              <ion-item>
-                <ion-label color="primary">Usuario</ion-label>
-                <ion-input type="text" placeholder="Usuario" name="username" [(ngModel)]="username" readonly required></ion-input>
-              </ion-item>
-
-              <ion-item>
-                <ion-label color="primary">Nombre</ion-label>
-                <ion-input type="text" placeholder="Nombre" name="firstName" [(ngModel)]="firstName"></ion-input>
-              </ion-item>
-
-              <ion-item>
-                <ion-label color="primary">Apellido</ion-label>
-                <ion-input type="text" placeholder="Apellido" name="lastName" [(ngModel)]="lastName"></ion-input>
-              </ion-item>
-
-              <ion-item>
-                <ion-label color="primary">Email</ion-label>
-                <ion-input type="email" placeholder="Email" name="email" [(ngModel)]="email" required></ion-input>
-              </ion-item>
-              
-              <ion-item>
-                <ion-label color="primary">Partidos Jugados</ion-label>
-                <ion-input type="text" placeholder="Partidos Jugados" name="appearances" [(ngModel)]="appearances" readonly></ion-input>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-
-        <ion-row>
-          <ion-col class="signup-col">
-            <button ion-button class="submit-btn" full type="submit" [disabled]="!profileForm.form.valid">Actualizar datos</button>        
-          </ion-col>
-        </ion-row> 
-
-      </form> -->
 </ion-content>
