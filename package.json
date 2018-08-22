@@ -37,6 +37,7 @@
     "express": "^4.16.3",
     "ionic-angular": "3.9.2",
     "ionicons": "3.0.0",
+    "onesignal-cordova-plugin": "^2.4.2",
     "rxjs": "5.5.11",
     "sw-toolbox": "3.6.0",
     "zone.js": "0.8.26"
@@ -58,7 +59,8 @@
         "APP_ID": "2195995550474081",
         "APP_NAME": "FutLunes",
         "ANDROID_SDK_VERSION": "4.+"
-      }
+      },
+      "onesignal-cordova-plugin": {}
     },
     "platforms": [
       "android"

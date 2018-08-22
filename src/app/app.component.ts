@@ -30,6 +30,15 @@ export class FutLunesApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      var notificationOpenedCallback = function(jsonData) {
+        console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+      };
+
+      window["plugins"].OneSignal
+      .startInit("00458453-7fc5-40ac-b49a-0f93684e8f4c")
+      .handleNotificationOpened(notificationOpenedCallback)
+      .endInit();
     });
   }
 
