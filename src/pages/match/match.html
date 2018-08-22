@@ -1,9 +1,3 @@
-<!--
-  Generated template for the MatchPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
@@ -12,8 +6,15 @@
 
 </ion-header>
 
-
 <ion-content padding>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+        pullingIcon="arrow-dropdown"
+        pullingText="Tire para refrescar"
+        refreshingSpinner="circles"
+        refreshingText="Refrescando...">
+    </ion-refresher-content>
+    </ion-refresher>
   <ion-grid>
     <ion-row>
       <ion-col col-sm>
@@ -23,7 +24,7 @@
               <ion-item>
                 <ion-icon name="pin" item-start large></ion-icon>
                 <h2>{{match.Title}}</h2>
-                <p>{{match.MatchDate}}</p>
+                <p>{{match.MatchDate | date:'short'}}</p>
               </ion-item>
               <ion-item>
                 <ion-icon name="people" item-start large ></ion-icon>
@@ -37,22 +38,31 @@
                 </button>
               </ion-item>
             </ion-card>
-          <div *ngIf="user">
-            <ion-row>
-              <ion-badge item-end *ngIf="hasSignedUp" color="secondary">Anotado</ion-badge>
-              <ion-badge item-end *ngIf="!hasSignedUp" color="danger">Sin anotar</ion-badge>
-            </ion-row>
-            <ion-row>
-              <button ion-button icon-start *ngIf="hasSignedUp" (click)="dismiss()">
-                <ion-icon name="thumbs-down"></ion-icon>
-                Bajarse
-              </button>
-              <button ion-button icon-start *ngIf="!hasSignedUp" (click)="signUp()">
-                <ion-icon name="thumbs-up"></ion-icon>
-                Anotarse
-              </button>
-            </ion-row>
-          </div>
+            
+            <div *ngIf="match">
+              <div *ngIf="user && match.Open">
+                <ion-row>
+                  <ion-badge item-end *ngIf="hasSignedUp" color="secondary">Anotado</ion-badge>
+                  <ion-badge item-end *ngIf="!hasSignedUp" color="danger">Sin anotar</ion-badge>
+                </ion-row>
+                <ion-row>
+                  <button ion-button icon-start *ngIf="hasSignedUp" (click)="dismiss()">
+                    <ion-icon name="thumbs-down"></ion-icon>
+                    Bajarse
+                  </button>
+                  <button ion-button icon-start *ngIf="!hasSignedUp" (click)="signUp()">
+                    <ion-icon name="thumbs-up"></ion-icon>
+                    Anotarse
+                  </button>
+                </ion-row>
+              </div>
+              <div *ngIf="user && !match.Open">
+                <ion-row>
+                  <ion-badge item-end color="danger">El partido está cerrado.</ion-badge>
+                </ion-row>
+              </div>
+            </div>
+          
       </ion-col>
       <ion-col col-sm>
         <ion-list no-lines *ngIf="match">
@@ -61,7 +71,7 @@
                 <img src="../../assets/imgs/GenericAvatar.png">
               </ion-avatar>
                 <h2>{{player.user}}</h2>
-                <p>{{player.subscriptionDate}}</p>
+                <p>{{player.subscriptionDate | date:'short'}}</p>
                 <!-- <ion-col>
                   <button *ngIf="isAdmin" (click)="kick(player, match)" ion-button icon-start clear small>
                     <ion-icon name="close"></ion-icon>
@@ -73,7 +83,6 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  
 
-  
 </ion-content>
+

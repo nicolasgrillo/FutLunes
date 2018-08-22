@@ -92,6 +92,7 @@ export class EditMatchPage {
         tempMatch.Title = matchInfo.locationTitle;
         tempMatch.Limit = matchInfo.playerLimit;
         tempMatch.MatchDate = matchInfo.matchDate;
+        tempMatch.Open = matchInfo.Open;
         tempMatch.Players = matchInfo.players;
 
         this.fullMatch = tempMatch;
