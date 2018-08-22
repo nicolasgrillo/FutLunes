@@ -62,6 +62,7 @@ export class CreateMatchPage {
         this.matchService.addMatch(this.match, accessToken).subscribe(
           () => {
             this.storage.remove("currentMatch");
+            this.storage.remove("currentAdminMatch");
             this.loading = this.loadProvider.dismissLoading(this.loading);
             this.navCtrl.pop();
           },
