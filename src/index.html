@@ -28,6 +28,25 @@
   </script>-->
 
   <link href="build/main.css" rel="stylesheet">
+  <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async='async'></script>
+  <script>
+    var OneSignal = window.OneSignal || [];
+    OneSignal.push(["init", {
+      appId: "00458453-7fc5-40ac-b49a-0f93684e8f4c",
+      autoRegister: false, /* Set to true to automatically prompt visitors */
+      httpPermissionRequest: {
+        enable: true
+      },
+      notifyButton: {
+          enable: true /* Set to false to hide */
+      },
+      welcomeNotification: {
+        "title": "Suscripción exitosa",
+        "message": "Gracias por suscribirse",
+        // "url": "" /* Leave commented for the notification to not open a window on Chrome and Firefox (on Safari, it opens to your webpage) */
+    }
+    }]);
+  </script>
 
 </head>
 <body>

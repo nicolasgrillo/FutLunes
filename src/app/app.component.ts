@@ -35,10 +35,12 @@ export class FutLunesApp {
         console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
       };
 
-      window["plugins"].OneSignal
-      .startInit("00458453-7fc5-40ac-b49a-0f93684e8f4c")
-      .handleNotificationOpened(notificationOpenedCallback)
-      .endInit();
+      if (this.platform.is('android')){
+        window["plugins"].OneSignal
+        .startInit("00458453-7fc5-40ac-b49a-0f93684e8f4c")
+        .handleNotificationOpened(notificationOpenedCallback)
+        .endInit();
+      }
     });
   }
 
