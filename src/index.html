@@ -37,6 +37,11 @@
       httpPermissionRequest: {
         enable: true
       },
+      text: {
+        subscribe: "Suscribite a nuestras novedades", /* Prompt's text when not subscribed */
+        unsubscribe: "Desuscribirse de nuestras novedades", /* Prompt's text when subscribed */
+        explanation: "Enviaremos noticias sobre el siguiente partido", /* Optional text appearing before the prompt button */
+      },
       notifyButton: {
           enable: true /* Set to false to hide */
       },
@@ -44,7 +49,15 @@
         "title": "Suscripción exitosa",
         "message": "Gracias por suscribirse",
         // "url": "" /* Leave commented for the notification to not open a window on Chrome and Firefox (on Safari, it opens to your webpage) */
-    }
+      },
+      promptOptions: {
+                /* actionMessage limited to 90 characters */
+                actionMessage: "Quisieramos enviarte novedades por este medio.",
+                /* acceptButtonText limited to 15 characters */
+                acceptButtonText: "Aceptar",
+                /* cancelButtonText limited to 15 characters */
+                cancelButtonText: "Rechazar"
+            }
     }]);
   </script>
 
