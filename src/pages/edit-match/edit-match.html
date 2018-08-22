@@ -14,19 +14,19 @@
       <ion-col>
         <ion-list inset>
           <ion-item>
-          <ion-label color="primary" floating>Nombre de la cancha</ion-label>
-            <ion-input type="text" placeholder="Nombre de la cancha" name="LocationTitle" [(ngModel)]="match.LocationTitle" required></ion-input>
+          <ion-label color="primary" floating>Nombre de la cancha*</ion-label>
+            <ion-input type="text" placeholder="Nombre de la cancha*" name="LocationTitle" [(ngModel)]="match.LocationTitle" required></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label color="primary" floating="on">URL GoogleMap</ion-label>
-            <ion-input type="text" placeholder="URL GoogleMap" name="MapUrl" [(ngModel)]="match.LocationMapUrl" required></ion-input>
+            <ion-label color="primary" floating="on">URL GoogleMap*</ion-label>
+            <ion-input type="text" placeholder="URL GoogleMap*" name="MapUrl" [(ngModel)]="match.LocationMapUrl" required></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label color="primary" floating min="0" max="22">Jugadores max</ion-label>
-            <ion-input type="number" placeholder="Jugadores max" name="playerLimit" [(ngModel)]="match.PlayerLimit" required></ion-input>
+            <ion-label color="primary" floating min="0" max="22">Jugadores max*</ion-label>
+            <ion-input type="number" placeholder="Jugadores max*" name="playerLimit" [(ngModel)]="match.PlayerLimit" required></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label color="primary" floating>Fecha del partido</ion-label>
+            <ion-label color="primary" floating>Fecha del partido*</ion-label>
             <ion-datetime pickerFormat="DD/MM HH:mm" displayFormat="DD/MM HH:mm" name="matchDate" [(ngModel)]="match.MatchDate" required></ion-datetime>
           </ion-item>
         </ion-list>
