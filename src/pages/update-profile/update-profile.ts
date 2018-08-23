@@ -34,7 +34,7 @@ export class UpdateProfilePage {
     this.storage.get('userInfo').then(
       (info) => {
         this.user = JSON.parse(info);
-        this.profile.username = this.user.username;
+        this.profile.username = this.user.userName;
         this.profile.email = this.user.email;
         this.profile.firstName = this.user.firstName;
         this.profile.lastName = this.user.lastName;
@@ -48,7 +48,7 @@ export class UpdateProfilePage {
       (resp) => {
         var accessToken = JSON.parse(resp).access_token;
 
-        this.auth.updateProfile(this.user.username, this.profile, accessToken).subscribe(
+        this.auth.updateProfile(this.user.userName, this.profile, accessToken).subscribe(
           () => {
             this.storage.remove('userInfo');
             this.loading = this.loadProvider.showIdentitySuccess(this.loading, this.navCtrl, this.alertCtrl, "Perfil actualizado.");    

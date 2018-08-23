@@ -32,7 +32,8 @@ export class EditMatchPage {
     this.storage.get("currentMatch").then(
       (matchInfo) => {
         if (this.match == null) this.matchCallback();        
-        this.match = JSON.parse(matchInfo)
+        this.fullMatch = JSON.parse(matchInfo)
+        this.match = new CreateMatchModel(this.fullMatch);
         this.loading = this.loadProvider.dismissLoading(this.loading);
       }
     );
@@ -65,7 +66,7 @@ export class EditMatchPage {
     this.storage.get('access_token').then(
       (resp) => {
         var accessToken = JSON.parse(resp).access_token;
-        this.matchService.updateMatch(this.fullMatch.Id, this.match, accessToken).subscribe(
+        this.matchService.updateMatch(this.fullMatch.id, this.match, accessToken).subscribe(
           () => {
             this.storage.remove("currentMatch");
             this.loading = this.loadProvider.dismissLoading(this.loading);
@@ -84,26 +85,13 @@ export class EditMatchPage {
   private matchCallback(){
     this.matchService.getCurrentMatch()
     .subscribe(
-      (matchInfo) =>
+      (match) =>
       {
-        var tempMatch = new Match();
-        tempMatch.Id = matchInfo.id;
-        tempMatch.MapUrl = matchInfo.locationMapUrl;
-        tempMatch.Title = matchInfo.locationTitle;
-        tempMatch.Limit = matchInfo.playerLimit;
-        tempMatch.MatchDate = matchInfo.matchDate;
-        tempMatch.Open = matchInfo.Open;
-        tempMatch.Players = matchInfo.players;
-
-        this.fullMatch = tempMatch;
+        this.fullMatch = match;
 
         this.storage.set("currentMatch", JSON.stringify(this.match));
         
-        this.match = new CreateMatchModel();
-        this.match.LocationMapUrl = this.fullMatch.MapUrl;
-        this.match.LocationTitle = this.fullMatch.Title;
-        this.match.MatchDate = this.fullMatch.MatchDate;
-        this.match.PlayerLimit = this.fullMatch.Limit;
+        this.match = new CreateMatchModel(this.fullMatch);
       },
       (err) =>
       {

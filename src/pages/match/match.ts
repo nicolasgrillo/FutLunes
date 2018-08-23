@@ -39,29 +39,18 @@ export class MatchPage {
         if(userInfo)
         {      
           this.user = JSON.parse(userInfo)
-          this.isAdmin = this.user.username == 'admin';
+          this.isAdmin = this.user.userName == 'admin';
         }
 
         this.storage.get("currentMatch").then(
-          (matchInfo) => {
-            if (matchInfo == null) this.matchCallback();
-            else{
-              var tempMatchInfo = JSON.parse(matchInfo)
-              var tempMatch = new Match();
-              tempMatch.Id = tempMatchInfo.Id;
-              tempMatch.MapUrl = tempMatchInfo.MapUrl;
-              tempMatch.Title = tempMatchInfo.Title;
-              tempMatch.Limit = tempMatchInfo.Limit;
-              tempMatch.MatchDate = tempMatchInfo.MatchDate;
-              tempMatch.Open = tempMatchInfo.Open;
-              tempMatch.Players = tempMatchInfo.Players;
-      
-              this.match = tempMatch;
-              if (this.match == null) this.matchCallback();
-              else {
-                this.subscriptions = this.match.Players.length;
-                if (this.user != null) this.checkIfUserHasSignedUp();
-              }
+          (match) => {
+            if (match == null) this.matchCallback();
+            else{      
+              this.match = JSON.parse(match);
+              this.subscriptions = this.match.players.length;
+
+              if (this.user != null) this.checkIfUserHasSignedUp();
+              
               this.loading = this.loadProvider.dismissLoading(this.loading);
             }
           }
@@ -78,7 +67,7 @@ export class MatchPage {
 
   private checkIfUserHasSignedUp(){
     if (this.user == null) return false;
-    var result = this.match.Players.find(p => p["user"] == this.user.username)
+    var result = this.match.players.find(p => p.user == this.user.userName)
     if (result != null) this.hasSignedUp = true;
     else this.hasSignedUp = false;
   }
@@ -86,21 +75,13 @@ export class MatchPage {
   private matchCallback(){
     this.matchService.getCurrentMatch()
     .subscribe(
-      (matchInfo) =>
+      (match) =>
       {
-        var tempMatch = new Match();
-        tempMatch.Id = matchInfo.id;
-        tempMatch.MapUrl = matchInfo.locationMapUrl;
-        tempMatch.Title = matchInfo.locationTitle;
-        tempMatch.Limit = matchInfo.playerLimit;
-        tempMatch.MatchDate = matchInfo.matchDate;
-        tempMatch.Open = matchInfo.open;
-        tempMatch.Players = matchInfo.players;
-
-        this.match = tempMatch;
+        this.match = match;
+        this.subscriptions = this.match.players.length
 
         this.storage.set("currentMatch", JSON.stringify(this.match));
-        this.subscriptions = this.match.Players.length
+        
         if (this.user != null) this.checkIfUserHasSignedUp();
       },
       (err) =>
@@ -112,16 +93,16 @@ export class MatchPage {
   }
 
   openMap(){
-    window.open(this.match.MapUrl, '_system', 'location=yes'); 
+    window.open(this.match.locationMapUrl, '_system', 'location=yes'); 
     return false;
   }
 
   dismiss() {
     var subscription = new SignUpModel();
-    subscription.MatchId = this.match.Id;
-    subscription.UserName = this.user.username;
+    subscription.MatchId = this.match.id;
+    subscription.UserName = this.user.userName;
     // TODO : Not required, probably shouldn't send Sub Date along. Confirm, low priority. 
-    subscription.DateTime = this.match.Players.find(p => p["user"] == this.user.username).subscriptionDate
+    subscription.DateTime = this.match.players.find(p => p["user"] == this.user.userName).subscriptionDate
 
     this.loading = this.loadProvider.showLoading(this.loading, this.loadingCtrl);
     this.storage.get('access_token').then(
@@ -145,8 +126,8 @@ export class MatchPage {
   signUp() {
     var subscription = new SignUpModel();
     subscription.DateTime = new Date();
-    subscription.MatchId = this.match.Id;
-    subscription.UserName = this.user.username;
+    subscription.MatchId = this.match.id;
+    subscription.UserName = this.user.userName;
 
     this.loading = this.loadProvider.showLoading(this.loading, this.loadingCtrl);
     this.storage.get('access_token').then(

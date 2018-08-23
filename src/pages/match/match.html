@@ -23,12 +23,12 @@
               <img src="assets/imgs/cancha.jpg">
               <ion-item>
                 <ion-icon name="pin" item-start large></ion-icon>
-                <h2>{{match.Title}}</h2>
-                <p>{{match.MatchDate | date:'short'}}</p>
+                <h2>{{match.locationTitle}}</h2>
+                <p>{{match.matchDate | date:'short'}}</p>
               </ion-item>
               <ion-item>
                 <ion-icon name="people" item-start large ></ion-icon>
-                <h2>{{subscriptions}} / {{match.Limit}}</h2>
+                <h2>{{subscriptions}} / {{match.playerLimit}}</h2>
               </ion-item>
           
               <ion-item>
@@ -40,7 +40,7 @@
             </ion-card>
             
             <div *ngIf="match">
-              <div *ngIf="user && match.Open">
+              <div *ngIf="user && match.open">
                 <ion-row>
                   <ion-badge item-end *ngIf="hasSignedUp" color="secondary">Anotado</ion-badge>
                   <ion-badge item-end *ngIf="!hasSignedUp" color="danger">Sin anotar</ion-badge>
@@ -56,7 +56,7 @@
                   </button>
                 </ion-row>
               </div>
-              <div *ngIf="user && !match.Open">
+              <div *ngIf="user && !match.open">
                 <ion-row>
                   <ion-badge item-end color="danger">El partido está cerrado.</ion-badge>
                 </ion-row>
@@ -66,7 +66,7 @@
       </ion-col>
       <ion-col col-sm>
         <ion-list no-lines *ngIf="match">
-            <ion-item *ngFor="let player of match.Players">
+            <ion-item *ngFor="let player of match.players">
               <ion-avatar item-start>
                 <img src="assets/imgs/GenericAvatar.png">
               </ion-avatar>

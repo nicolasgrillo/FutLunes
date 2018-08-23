@@ -5,6 +5,7 @@ import { Observable } from '../../../node_modules/rxjs/Observable';
 import { CreateMatchModel } from '../../models/CreateMatchModel';
 import { SignUpModel } from '../../models/SignUpModel';
 import { Match } from '../../models/models';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class MatchServiceProvider {
@@ -16,7 +17,11 @@ export class MatchServiceProvider {
   ) {}
 
   public getCurrentMatch(): Observable<any>{
-    return this.http.get(this.baseApiUrl + "api/matches/current");
+    return this.http.get(this.baseApiUrl + "api/matches/current").map(
+      (match) => {
+        return match as Match
+      }
+    );;
   }
 
   public addMatch(cmm : CreateMatchModel, token : string) : Observable<any> {
@@ -72,8 +77,9 @@ export class MatchServiceProvider {
   }
 
   public confirmMatch(match : Match, accessToken: string) : Observable<any> {
+    var url = this.baseApiUrl + "api/matches/" + match.id + "/confirm"
     return this.http.post(
-      this.baseApiUrl + "api/matches/" + match['Id'] + "/confirm",
+      url,
       "",
       {
         headers: {
@@ -85,8 +91,9 @@ export class MatchServiceProvider {
   }
 
   public deconfirmMatch(match : Match, accessToken: string) : Observable<any> {
+    var url = this.baseApiUrl + "api/matches/" + match.id + "/deconfirm"
     return this.http.post(
-      this.baseApiUrl + "api/matches/" + match['Id'] + "/deconfirm",
+      url,
       "",
       {
         headers: {

@@ -44,20 +44,11 @@ export class AdminPage {
         
         if (currentMatch == null){
           this.matchService.getCurrentMatch().subscribe(
-            (matchInfo) => {
-              var tempMatch = new Match();
-              tempMatch.Id = matchInfo.id;
-              tempMatch.MapUrl = matchInfo.locationMapUrl;
-              tempMatch.Title = matchInfo.locationTitle;
-              tempMatch.Limit = matchInfo.playerLimit;
-              tempMatch.MatchDate = matchInfo.matchDate;
-              tempMatch.Open = matchInfo.open;
-              tempMatch.Players = matchInfo.players;
-
-              this.match = tempMatch;
+            (match) => {
+              this.match = match;
               this.storage.set("currentAdminMatch", JSON.stringify(this.match));
             } 
-          );
+          )
         }
         else {
           this.match = JSON.parse(currentMatch)
@@ -121,6 +112,7 @@ export class AdminPage {
     this.loading = this.loadProvider.showLoading(this.loading,this.loadingCtrl);
     this.matchService.deconfirmMatch(this.match, this.token).subscribe(
       () => {
+        this.storage.remove("currentMatch");
         this.storage.remove("currentAdminMatch");
         this.loading = this.loadProvider.dismissLoading(this.loading);
         this.navCtrl.pop();
@@ -135,6 +127,7 @@ export class AdminPage {
     this.loading = this.loadProvider.showLoading(this.loading,this.loadingCtrl);
       this.matchService.confirmMatch(this.match, this.token).subscribe(
         () => {
+          this.storage.remove("currentMatch");
           this.storage.remove("currentAdminMatch");
           this.loading = this.loadProvider.dismissLoading(this.loading);
           this.navCtrl.pop();

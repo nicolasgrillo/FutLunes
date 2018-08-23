@@ -1,11 +1,15 @@
-import { User } from "./models";
+interface PlayerInMatch {
+    id : number;
+    subscriptionDate : Date;
+    user: string;
+}
 
 export class Match {
-    Id : number;
-    Title : string;
-    MapUrl : string;
-    MatchDate : Date;
-    Limit : number;
-    Open : boolean;
-    Players : User[];
+    id : number;
+    locationTitle : string;
+    locationMapUrl : string;
+    matchDate : Date;
+    playerLimit : number;
+    open : boolean;
+    players : PlayerInMatch[];
 }
