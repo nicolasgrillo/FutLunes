@@ -89,4 +89,5 @@
         <variable name="ANDROID_SDK_VERSION" value="4.+" />
     </plugin>
     <plugin name="onesignal-cordova-plugin" spec="^2.4.2" />
+    <plugin name="cordova-plugin-background-mode" spec="^0.7.2" />
 </widget>
