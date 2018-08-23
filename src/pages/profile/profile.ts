@@ -18,7 +18,7 @@ export class ProfilePage {
   changePasswordPage : any;
   updateProfilePage : any;
 
-  @ViewChild('username') username: string;
+  @ViewChild('userName') userName: string;
   @ViewChild('firstName') firstName: string;
   @ViewChild('lastName') lastName: string;
   @ViewChild('email') email: string;
@@ -46,11 +46,7 @@ export class ProfilePage {
             this.accessToken = JSON.parse(token)
             if (this.userInfo == null) this.profileCallback();
             else {
-              this.username = this.userInfo.username;
-              this.firstName = this.userInfo.firstName;
-              this.lastName = this.userInfo.lastName;
-              this.email = this.userInfo.email;
-              this.appearances = this.userInfo.appearances;
+              this.fillUserCard(this.userInfo);
             }
           }
         );
@@ -64,23 +60,11 @@ export class ProfilePage {
     if (this.userInfo == null && this.accessToken != null) {      
       this.playerService.getInfo(this.accessToken.userName, this.accessToken.access_token)
       .subscribe(
-        (info) =>
+        (userInfo) =>
         {
-          var user = new User();
-          user.username = info.userName;
-          user.firstName = info.firstName;
-          user.lastName = info.lastName;
-          user.email = info.email;
-          user.appearances = info.appearances;
-          
-          this.userInfo = user;
-          this.storage.set("userInfo", JSON.stringify(this.userInfo));
-
-          this.username = this.userInfo.username;
-          this.firstName = this.userInfo.firstName;
-          this.lastName = this.userInfo.lastName;
-          this.email = this.userInfo.email;
-          this.appearances = this.userInfo.appearances;
+          this.userInfo = userInfo;
+          this.storage.set("userInfo", JSON.stringify(userInfo));
+          this.fillUserCard(this.userInfo);          
         },
         (err) =>
         {
@@ -88,7 +72,14 @@ export class ProfilePage {
           console.log(err);
         }
       )
-    }
-    
+    }    
+  }
+
+  private fillUserCard(userInfo : User) : void {
+    this.userName = userInfo.userName;
+    this.firstName = userInfo.firstName;
+    this.lastName = userInfo.lastName;
+    this.email = userInfo.email;
+    this.appearances = userInfo.appearances;
   }
 }

@@ -3,13 +3,9 @@ import { Injectable } from '@angular/core';
 import { environment as ENV } from '../../environments/environment';
 import { Observable } from '../../../node_modules/rxjs/Observable';
 import { AuthServiceProvider } from '../auth-service/auth-service';
+import 'rxjs/add/operator/map';
+import { User } from '../../models/User';
 
-/*
-  Generated class for the PlayerServiceProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class PlayerServiceProvider {
 
@@ -25,6 +21,10 @@ export class PlayerServiceProvider {
         headers: {
           "Authorization": "Bearer " + accesstoken
         }
+      }
+    ).map(
+      (info) => {
+        return info as User
       }
     );
   }

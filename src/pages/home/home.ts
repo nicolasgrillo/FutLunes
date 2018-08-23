@@ -52,15 +52,8 @@ export class HomePage {
         this.isAuthenticated = (this.token != null);
         this.isAdmin = (this.token.userName == 'admin');
         this.playerService.getInfo(this.token.userName, this.token.access_token).subscribe(
-          (info) => {
-            var user = new User();
-            user.username = info.userName;
-            user.firstName = info.firstName;
-            user.lastName = info.lastName;
-            user.email = info.email;
-            user.appearances = info.appearances;
-            
-            this.storage.set("userInfo", JSON.stringify(user));
+          (userInfo) => {            
+            this.storage.set("userInfo", JSON.stringify(userInfo));
           }
         )
       }
