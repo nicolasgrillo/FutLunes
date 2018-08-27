@@ -5,7 +5,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { FutLunesApp } from './app.component';
 import { HomePage, LoginPage, AdminPage, ProfilePage, MatchPage, RegisterPage, CreateMatchPage, ChangePasswordPage, EditMatchPage, UpdateProfilePage } from '../pages/pages';
-
+import { BackgroundMode } from '@ionic-native/background-mode';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthServiceProvider, PlayerServiceProvider, MatchServiceProvider, LoadingProvider } from '../providers/providers';
@@ -52,7 +52,8 @@ import { LoginPageModule, HomePageModule, AdminPageModule, ProfilePageModule, Ma
     AuthServiceProvider,
     PlayerServiceProvider,
     MatchServiceProvider,
-    LoadingProvider
+    LoadingProvider,
+    BackgroundMode
   ]
 })
 export class AppModule {}
